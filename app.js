@@ -3,17 +3,27 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const PORT = process.env.PORT || 3000;
-const userRoute = require('./routes/user');
 
+//======================================================================
+
+const userRoute = require('./routes/user');
+const kitchenRoute = require('./routes/kitchen');
+const foodRoute = require('./routes/food');
+
+
+//======================================================================
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("./public"));
 
 
+//======================================================================
 
 app.use(userRoute);
-
+app.use(kitchenRoute);
+app.use(foodRoute);
+//======================================================================
 
 mongoose
   .connect(
