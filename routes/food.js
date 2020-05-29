@@ -5,6 +5,7 @@ const multer = require('multer');
 const path = require('path');
 const Food = require('../model/food');
 const Kitchen = require('../model/kitchen');
+const Feedback = require('../model/feedbacks');
 
 let name;
 
@@ -71,5 +72,50 @@ const storage = multer.diskStorage({
       }
   });
 
+  router.post('/addfeedback/:id', async (req,res)=>{
+      
+    const fromId = req.params.id;
+    if(!req.body.foodId){
+        return res.send({success:false,message:"provide food id"});
+    }
+    if(!req.body.types){
+        return res.send({success:false,message:"provide feedback type"});
+    }
+    
+    try {
+        const feedbackX = await Feedback.exists({foodId:req.body.foodId});
+        if(feedbackX){
+            const feedback = await Feedback.findOne({foodId:req.body.foodId});
+
+            if(req.body.types.like){
+                feedback.likes.addToSet(fromId);
+                feedback.likeCount++;
+            }else if(req.body.types.comment){
+                feedback.comments.addToSet({from:fromId,description:req.body.description});
+                feedback.commentCount++;
+            }
+            await feedback.save();
+            return res.send({success:false,data:feedback});
+        }else{
+            const feedback = new Feedback({
+                foodId:req.body.foodId
+            });
+
+            if(req.body.types.like){
+                feedback.likes.addToSet(fromId);
+                feedback.likeCount++;
+            }else if(req.body.types.comment){
+                feedback.comments.addToSet({from:fromId,description:req.body.description});
+                feedback.commentCount++;
+            }
+
+            await feedback.save();
+            return res.send({success:false,data:feedback});
+        }
+    } catch (e) {
+        res.status(500).send({success:false,message:"something went wrong",error:e});
+    }
+
+  })
 
 module.exports = router;
