@@ -8,13 +8,11 @@ const schema = mongoose.Schema({
     
     commentCount:{type:Number,default:0},
 
-    likes:[{
-        from:{type:String}
-    }],
+    likes:[String],
     
     comments:[{
-        from:{type:String},
-        description:{type:String}
+        from:{type:String,default:""},
+        description:{type:String,default:""}
     }]
 
 });

@@ -85,17 +85,42 @@ const storage = multer.diskStorage({
     try {
         const feedbackX = await Feedback.exists({foodId:req.body.foodId});
         if(feedbackX){
-            const feedback = await Feedback.findOne({foodId:req.body.foodId});
+            let feedback = await Feedback.findOne({foodId:req.body.foodId});
 
             if(req.body.types.like){
+
+              const check = await Feedback.exists({foodId:req.body.foodId,likes:{$in:[fromId]}});
+              
+              if(check){
+
+                  feedback.likeCount--
+                  var index = feedback.likes.indexOf(fromId);
+                  
+                  if (index >= 0) {
+                    feedback.likes.splice( index, 1 );
+                  }
+
+                  await feedback.save();
+                  return res.send({success:true,data:feedback});
+
+              }
+
                 feedback.likes.addToSet(fromId);
                 feedback.likeCount++;
             }else if(req.body.types.comment){
+              
                 feedback.comments.addToSet({from:fromId,description:req.body.description});
                 feedback.commentCount++;
             }
+            
             await feedback.save();
-            return res.send({success:false,data:feedback});
+            
+            const food = await Food.findById({_id:req.body.foodId});
+            food.feedback = feedback._id;
+
+            await food.save();
+
+            return res.send({success:true,data:{feedback,food}});
         }else{
             const feedback = new Feedback({
                 foodId:req.body.foodId
@@ -110,7 +135,13 @@ const storage = multer.diskStorage({
             }
 
             await feedback.save();
-            return res.send({success:false,data:feedback});
+            
+            const food = await Food.findById({_id:req.body.foodId});
+            food.feedback = feedback._id;
+
+            await food.save();
+
+            return res.send({success:true,data:{feedback,food}});
         }
     } catch (e) {
         res.status(500).send({success:false,message:"something went wrong",error:e});
