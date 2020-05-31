@@ -109,6 +109,33 @@ router.get('/getuser/:id', async (req,res)=>{
     }
 });
 
+router.get('/getuserfromuserid/:id', async (req,res)=>{
+    const userId = req.params.id;
+
+    try {
+        const user = await User.find({userId});
+        if(!user || Object.keys(user).length == 0){
+            return res.status(404).send({success:false,message:"no user found"})
+        }
+        res.send({success:true,data:user});
+    } catch (e) {
+        res.status(500).send({success:false,message:"something went wrong",error:e});
+    }
+});
+
+router.get('/getalluser', async (req,res)=>{
+
+    try {
+        const user = await User.find({});
+        if(!user || Object.keys(user).length == 0){
+            return res.status(404).send({success:false,message:"no user found"})
+        }
+        res.send({success:true,data:user});
+    } catch (e) {
+        res.status(500).send({success:false,message:"something went wrong",error:e});
+    }
+});
+
 router.post('/updatepic/:id', uploadX.single('newpic'), async (req,res)=>{
   
     if(!req.file){
@@ -152,6 +179,76 @@ router.post('/updateuserinfo/:id', async (req,res)=>{
         res.status(500).send({success:false,message:"something went wrong",error:e});
 
     }
+});
+
+router.post('/followorunfollowuser/:id', async (req,res)=>{
+    const userId = req.params.id;
+
+    if(!req.body.follower){
+        return res.status(400).send({success:false,message:"provide follower id"})
+    }
+
+    try {
+        let user = await User.findOne({userId});
+
+        if(!user || Object.keys(user).length == 0){
+            return res.status(404).send({success:false,message:`user not found with id ${userId}`});
+        }
+        const check = await User.exists({userId,followers:{$in:[req.body.follower]}});
+              
+        if(check){
+
+            user.followersCount--
+            var index = user.followers.indexOf(req.body.follower);
+            
+            if (index >= 0) {
+              user.followers.splice( index, 1 );
+            }
+
+            await user.save();
+            let follower = await User.findOne({_id:req.body.follower});
+            var index = follower.following.indexOf(user._id);
+            
+            if (index >= 0) {
+              follower.following.splice( index, 1 );
+            }
+            follower.followingCount--
+            await follower.save();
+            return res.send({success:true,data:user});
+
+        }
+        user.followers.addToSet(req.body.follower);
+        user.followersCount++;
+        await user.save();
+        let follower = await User.findOne({_id:req.body.follower});
+        follower.following.addToSet(user._id);
+        follower.followingCount++
+        await follower.save();
+        return res.send({success:true,data:user});
+    } catch (e) {
+        res.status(500).send({success:false,message:"something went wrong",error:e});
+    }
+
+});
+
+router.post('/savecategory/:id', async (req,res)=>{
+    const userId = req.params.id;
+
+    if(!req.body.foodCategory){
+        return res.status(400).send({success:false,message:"provide categories"})
+    }
+
+    try {
+        let user = await User.findOne({userId});
+
+        user.foodCategory = req.body.foodCategory;
+
+        await user.save();
+        res.send({success:true,data:user});
+    } catch (e) {
+        res.status(500).send({success:false,message:"something went wrong",error:e});
+    }
 })
+
 
 module.exports = router;
