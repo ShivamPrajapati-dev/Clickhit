@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth');
 const Kitchen = require('../model/kitchen');
 
-router.post('/savekitchen/:id', async (req,res)=>{
+router.post('/savekitchen', auth,async (req,res)=>{
 
-    const userId = req.params.id;
+    const userId = req.user.userId;
 
     if(!req.body.name){
         return res.status(400).send({success:false,message:"provide kitchen name"})
@@ -25,8 +26,8 @@ router.post('/savekitchen/:id', async (req,res)=>{
 });
 
 
-router.get('/getkitchen/:id', async (req,res)=>{
-    const userId = req.params.id;
+router.get('/getkitchen', auth,async (req,res)=>{
+    const userId = req.user.userId;
 
     try {
 
@@ -41,7 +42,7 @@ router.get('/getkitchen/:id', async (req,res)=>{
     }
 });
 
-router.get('/getallkitchen', async (req,res)=>{
+router.get('/getallkitchen', auth, async (req,res)=>{
 
     try {
 
@@ -56,7 +57,7 @@ router.get('/getallkitchen', async (req,res)=>{
     }
 });
 
-router.post('/updatekitcheninfo/:id', async (req,res)=>{
+router.post('/updatekitcheninfo/:id', auth,async (req,res)=>{
     const _id = req.params.id;
     
     if(!req.body){
@@ -90,7 +91,9 @@ router.post('/updatekitcheninfo/:id', async (req,res)=>{
         res.status(500).send({success:false,message:"something went wrong",error:e});
 
     }
-})
+});
+
+
 
 
 module.exports = router;

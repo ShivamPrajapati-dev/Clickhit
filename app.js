@@ -12,6 +12,11 @@ const discussionRoute = require('./routes/discussion');
 
 //==================MIDDLEWARES====================================================
 const app = express();
+
+// app.use((req,res,next)=>{
+
+// })
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("./public"));

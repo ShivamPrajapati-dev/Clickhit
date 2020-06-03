@@ -3,9 +3,11 @@ const router = express.Router();
 const { v4: uuidv4 } = require('uuid');
 const multer = require('multer');
 const path = require('path');
-const Food = require('../model/food');
+const auth = require('../middleware/auth');
+const Food = require('../model/food/post');
 const Kitchen = require('../model/kitchen');
 const Feedback = require('../model/feedbacks');
+const NewFood = require('../model/new-food');
 
 let name;
 
@@ -25,8 +27,8 @@ const storage = multer.diskStorage({
     storage: storage,
   });
 
-  router.post('/addfood/:id',upload.single('pic'), async (req,res)=>{
-      const userId = req.params.id;
+  router.post('/addfood',auth,upload.single('pic'), async (req,res)=>{
+      const userId = req.user.userId;
 
       if(!req.body.category){
           return res.status(400).send({success:false,message:"provide food category"});
@@ -65,16 +67,18 @@ const storage = multer.diskStorage({
         kitchen.allFood.addToSet(food._id);
         kitchen.foodCount++;
         await kitchen.save();
-
+        const newFood = new NewFood();
+        newFood.newFood.push(food._id);
+        await newFood.save();
         res.send({success:true,data:{food,kitchen}})
       } catch (e) {
         res.status(500).send({success:false,message:"something went wrong",error:e});
       }
   });
 
-  router.post('/addfeedback/:id', async (req,res)=>{
+  router.post('/addfeedback', auth, async (req,res)=>{
       
-    const fromId = req.params.id;
+    const fromId = req.user.userId;
     if(!req.body.foodId){
         return res.send({success:false,message:"provide food id"});
     }

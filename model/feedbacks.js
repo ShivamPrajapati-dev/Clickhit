@@ -2,19 +2,11 @@ const mongoose = require("mongoose");
 
 const schema = mongoose.Schema({
 
-    foodId:{type:mongoose.Schema.Types.ObjectId},
-    
-    likeCount:{type:Number,default:0},
-    
-    commentCount:{type:Number,default:0},
+    followerId:{type:mongoose.Schema.Types.ObjectId},
+    followeeId:{type:mongoose.Schema.Types.ObjectId}
 
-    likes:[String],
-    
-    comments:[{
-        from:{type:String,default:""},
-        description:{type:String,default:""}
-    }]
-
+},{
+    timestamps:true
 });
 
 const model = mongoose.model('feedbacks',schema);

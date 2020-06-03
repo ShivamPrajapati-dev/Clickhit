@@ -2,26 +2,16 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema({
 
     userId:{
-        type:String
+        type:String,
+        required:true
     },
 
     name:{
         type:String
-    },
+    }
 
-    foodCount:{
-        type:Number,
-        default:0
-    },
-
-    topLiked:{
-        type:mongoose.Schema.Types.ObjectId
-    },
-
-    allFood:[{
-        type:mongoose.Schema.Types.ObjectId
-    }]
-
+},{
+    timestamps:true
 });
 
 const model = mongoose.model('kitcken', schema);
