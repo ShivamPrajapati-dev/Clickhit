@@ -4,7 +4,10 @@ const { v4: uuidv4 } = require('uuid');
 const multer = require('multer');
 const path = require('path');
 const User = require('../model/user');
+const client = require('../redis-client/client');
 const auth = require('../middleware/auth');
+const cache = require('../middleware/cache');
+const userfeed = require('../middleware/userfeed');
 let name;
 
 const storage = multer.diskStorage({
@@ -71,8 +74,8 @@ router.post('/adduser', upload.single('pic'), async (req,res)=>{
         if(req.file){
             user = new User({
                 ...req.body,
-                picUrl:'http://localhost:3000/uploads/profile_pictures/'+name+path.extname(req.file.filename),
-                picName:name+path.extname(req.file.filename)
+                imageUrl:'http://localhost:3000/uploads/profile_pictures/'+name+path.extname(req.file.filename),
+                imageName:name+path.extname(req.file.filename)
             })
         }else{
             user = new User({
@@ -101,8 +104,9 @@ router.post('/user/login', async (req,res)=>{
     }
 });
 
-router.get('/user/me',auth, async (req,res)=>{
+router.get('/user/me',cache, auth, (req,res)=>{
     res.send({success:true,data:req.user});
+    
 });
 
 router.post('/user/me/logout', auth, async (req,res)=>{
@@ -113,7 +117,8 @@ router.post('/user/me/logout', auth, async (req,res)=>{
         })
     
         await req.user.save();
-        
+        const key = '__user__'+req.user._id.toString();
+        client.del(key);
         res.send({success:true});
     } catch (e) {
         res.status(500).send({success:false,message:"something went wrong",error:e});
@@ -131,12 +136,21 @@ router.post('/user/me/logoutall', auth, async (req,res)=>{
     }
 });
 
+router.get('/userfeed/me', cache, auth, userfeed, (req,res)=>{
+    if(req.userfeed){
+        res.send({success:true,data:req.userfeed});
+    }else{
+        res.send({success:false,message:"no userfeed found"});
+    }
+})
 
 router.post('/updatepic/me',auth, uploadX.single('newpic'), async (req,res)=>{
   
     if(!req.file){
         return res.send({success:false,message:"provide new image"})
     }
+    const key = '__user__'+req.user._id.toString();
+    client.set(key,JSON.stringify(req.user));
 
     res.send({success:true})
 });
@@ -165,6 +179,8 @@ router.post('/updateuserinfo/me',auth, async (req,res)=>{
         });
 
         await req.user.save();
+        const key = '__user__'+req.user._id.toString();
+        client.set(key,JSON.stringify(req.user));
         res.send({success:true,data:req.user});
     } catch (e) {
         res.status(500).send({success:false,message:"something went wrong",error:e});

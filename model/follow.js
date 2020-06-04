@@ -9,5 +9,5 @@ const schema = mongoose.Schema({
     timestamps:true
 });
 
-const model = mongoose.model('feedbacks',schema);
+const model = mongoose.model('follow',schema);
 module.exports = model;

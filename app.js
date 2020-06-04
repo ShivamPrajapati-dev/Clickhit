@@ -6,17 +6,11 @@ const PORT = process.env.PORT || 3000;
 //==================IMPORTS====================================================
 
 const userRoute = require('./routes/user');
-const kitchenRoute = require('./routes/kitchen');
-const foodRoute = require('./routes/food');
-const discussionRoute = require('./routes/discussion');
-
+const foodRoute = require('./routes/post');
+const followRoute = require('./routes/follow');
 //==================MIDDLEWARES====================================================
+
 const app = express();
-
-// app.use((req,res,next)=>{
-
-// })
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("./public"));
@@ -25,9 +19,9 @@ app.use(express.static("./public"));
 //==================ROUTES====================================================
 
 app.use(userRoute);
-app.use(kitchenRoute);
 app.use(foodRoute);
-app.use(discussionRoute);
+app.use(followRoute);
+
 
 //==================MONGODB CONNECT====================================================
 

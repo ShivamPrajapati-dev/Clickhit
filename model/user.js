@@ -24,25 +24,9 @@ const schema = mongoose.Schema({
 
     email:{type:String},
 
-    picUrl:{type:String},
+    imageUrl:{type:String},
 
-    picName:{type:String},
-
-    // followers:[{
-    //     type:mongoose.Schema.Types.ObjectId
-    // }],
-
-    // following:[{
-    //     type:mongoose.Schema.Types.ObjectId
-    // }],
-
-    // followersCount:{type:Number,default:0},
-
-    // followingCount:{type:Number,default:0},
-
-    // foodCategory:[{
-    //     type:String
-    // }],
+    imageName:{type:String},
 
     tokens:[{
         token:{

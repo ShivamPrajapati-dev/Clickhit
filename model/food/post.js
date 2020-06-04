@@ -4,8 +4,8 @@ const schema = mongoose.Schema({
     userId:{type:String},
     category:{type:String},
     ingredients:[String],
-    imageUrls:[{type:String}],
-    imageName:[{type:String}]
+    imageUrl:{type:String},
+    imageName:{type:String}
 
 },{
     timestamps:true
