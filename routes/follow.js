@@ -20,6 +20,8 @@ router.post('/addfollowee', auth, async (req,res)=>{
         res.send({success:false,message:'something went wrong',error:e})
     }
     
-})
+});
+
+
 
 module.exports = router;
