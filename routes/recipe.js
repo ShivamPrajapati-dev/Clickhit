@@ -31,7 +31,7 @@ router.post('/save/recipe/:id', auth, async (req,res)=>{
 router.post('/get/recipe/:id', async (req,res)=>{
    
     if(!req.body.userId){
-        return res.send({success:false,message:"provide recipe privacy"});
+        return res.send({success:false,message:"provide user id"});
     }
 
     try {

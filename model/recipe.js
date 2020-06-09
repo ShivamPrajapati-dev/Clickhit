@@ -4,7 +4,8 @@ const schema = mongoose.Schema({
     userId:{type:String},
     foodId:{type:mongoose.Schema.Types.ObjectId},
     recipe:{type:String},
-    secret:{type:Boolean,default:false}
+    secret:{type:Boolean,default:false},
+    goal:{type:Number,default:0}     //like goal
     
 },{
     timestamps:true
