@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema({
 
     userId:{type:String},
+    foodName:{type:String},
     category:{type:String},
     ingredients:[String],
     imageUrl:{type:String},

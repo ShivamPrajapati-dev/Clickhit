@@ -3,7 +3,8 @@ const schema = mongoose.Schema({
 
     userId:{type:String},
     foodId:{type:mongoose.Schema.Types.ObjectId},
-    recipe:{type:String}
+    recipe:{type:String},
+    secret:{type:Boolean,default:false}
     
 },{
     timestamps:true

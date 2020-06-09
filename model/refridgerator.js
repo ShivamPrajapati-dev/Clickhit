@@ -1,7 +1,12 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema({
 
-    fooId:{type:mongoose.Schema.Types.ObjectId},
+    food:[{
+        foodName:{type:String},
+        imageUrl:{type:String},
+        fooId:{type:mongoose.Schema.Types.ObjectId}
+    }],
+
     kitchenId:{type:mongoose.Schema.Types.ObjectId}
     
 },{
@@ -9,4 +14,4 @@ const schema = mongoose.Schema({
 });
 
 const model = mongoose.model('refridgerator',schema);
-module.exports = model;
+module.exports = model; 

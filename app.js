@@ -8,6 +8,8 @@ const PORT = process.env.PORT || 3000;
 const userRoute = require('./routes/user');
 const foodRoute = require('./routes/post');
 const followRoute = require('./routes/follow');
+const kitchenRoute = require('./routes/kitchen');
+
 //==================MIDDLEWARES====================================================
 
 const app = express();
@@ -21,7 +23,7 @@ app.use(express.static("./public"));
 app.use(userRoute);
 app.use(foodRoute);
 app.use(followRoute);
-
+app.use(kitchenRoute);
 
 //==================MONGODB CONNECT====================================================
 

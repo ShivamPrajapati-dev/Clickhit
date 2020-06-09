@@ -6,40 +6,47 @@ const path = require('path');
 const User = require('../model/user');
 const client = require('../redis-client/client');
 const auth = require('../middleware/auth');
-const cache = require('../middleware/cache');
 const userfeed = require('../middleware/userfeed');
-let name;
+const AWS = require('aws-sdk');
+const multerS3 = require('multer-s3')
+require('dotenv').config()
 
-const storage = multer.diskStorage({
-    destination: "./public/uploads/profile_pictures",
-    filename: function (req, file, cb) {
-        name = uuidv4();        
-      cb(
-        null,
-        name + path.extname(file.originalname)
-      );
-    },
-  });
-  
-  //init upload variable
-  const upload = multer({
-    storage: storage,
-  });
+//==================================================================
 
-  const storageX = multer.diskStorage({
-    destination: "./public/uploads/profile_pictures",
-    filename: async function (req, file, cb) {
-       
-      cb(
-        null,
-        req.user.picName + path.extname(file.originalname)
-      );
-    },
-  });
 
-  const uploadX = multer({
-    storage: storageX,
-  });
+
+const s3 =  new AWS.S3({
+    accessKeyId: process.env.ID,
+    secretAccessKey: process.env.SECRET
+});
+
+
+  var upload = multer({
+    storage: multerS3({
+      s3: s3,
+      bucket: process.env.BUCKET_NAME,
+      metadata: function (req, file, cb) {
+        cb(null, {fieldName: file.fieldname});
+      },
+      key: function (req, file, cb) {
+          req.filename = uuidv4() + path.extname(file.originalname);
+        cb(null, req.filename);
+      }
+    })
+  })
+
+  var uploadX = multer({
+    storage: multerS3({
+      s3: s3,
+      bucket: process.env.BUCKET_NAME,
+      metadata: function (req, file, cb) {
+        cb(null, {fieldName: file.fieldname});
+      },
+      key: function (req, file, cb) {
+        cb(null, req.user.imageName);
+      }
+    })
+  })
 
 router.post('/adduser', upload.single('pic'), async (req,res)=>{
 
@@ -69,24 +76,26 @@ router.post('/adduser', upload.single('pic'), async (req,res)=>{
 
     try {
         
-        let user;
+        let user;       
 
         if(req.file){
+
             user = new User({
                 ...req.body,
-                imageUrl:'http://localhost:3000/uploads/profile_pictures/'+name+path.extname(req.file.filename),
-                imageName:name+path.extname(req.file.filename)
-            })
+                imageUrl:req.file.location,
+                imageName:req.file.key
+             });
+           
         }else{
             user = new User({
                 ...req.body
              })
         }
 
-
         await user.save();
         const token = await user.generateAuthToken();
-        res.send({success:true,data:user,token})
+        
+        res.send({success:true,data:user,token})  
 
     } catch (e) {
         res.status(500).send({success:false,message:"something went wrong",error:e});
@@ -104,10 +113,23 @@ router.post('/user/login', async (req,res)=>{
     }
 });
 
-router.get('/user/me',cache, auth, (req,res)=>{
+router.get('/user/me', auth, (req,res)=>{
     res.send({success:true,data:req.user});
     
 });
+
+router.get('/public/profile/:userid', async (req,res)=>{
+    try {
+        const user = await User.findOne({userId:req.params.userid});
+        let publicProfile = {
+            name:user.name,
+            imageUrl:user.imageUrl
+        };
+        res.send({success:true,data:publicProfile});
+    } catch (e) {
+        res.status(500).send({success:false,message:"something went wrong",error:e});
+    }
+})
 
 router.post('/user/me/logout', auth, async (req,res)=>{
 
@@ -117,8 +139,7 @@ router.post('/user/me/logout', auth, async (req,res)=>{
         })
     
         await req.user.save();
-        const key = '__user__'+req.user._id.toString();
-        client.del(key);
+    
         res.send({success:true});
     } catch (e) {
         res.status(500).send({success:false,message:"something went wrong",error:e});
@@ -136,7 +157,7 @@ router.post('/user/me/logoutall', auth, async (req,res)=>{
     }
 });
 
-router.get('/userfeed/me', cache, auth, userfeed, (req,res)=>{
+router.get('/userfeed/me', auth, userfeed, (req,res)=>{
     if(req.userfeed){
         res.send({success:true,data:req.userfeed});
     }else{
@@ -149,8 +170,6 @@ router.post('/updatepic/me',auth, uploadX.single('newpic'), async (req,res)=>{
     if(!req.file){
         return res.send({success:false,message:"provide new image"})
     }
-    const key = '__user__'+req.user._id.toString();
-    client.set(key,JSON.stringify(req.user));
 
     res.send({success:true})
 });
@@ -179,8 +198,6 @@ router.post('/updateuserinfo/me',auth, async (req,res)=>{
         });
 
         await req.user.save();
-        const key = '__user__'+req.user._id.toString();
-        client.set(key,JSON.stringify(req.user));
         res.send({success:true,data:req.user});
     } catch (e) {
         res.status(500).send({success:false,message:"something went wrong",error:e});

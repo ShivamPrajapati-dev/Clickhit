@@ -18,20 +18,8 @@ const auth = async (req,res,next)=>{
         }
         req.token = token;
         req.user = user;
-        
-
-        const userString = JSON.stringify(req.user);
-        const key = '__user__'+req.user._id.toString();
-
-        client.set(key, userString,function(err,reply){
-            if(err){ 
-                
-                throw err;
-            }
-            
-            next();
-            
-        });
+    
+        next();
         
     } catch (e) {
         res.status(401).send({success:false,error:e});
