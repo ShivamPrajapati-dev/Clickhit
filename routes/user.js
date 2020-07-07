@@ -92,10 +92,17 @@ router.post('/adduser', upload.single('pic'), async (req,res)=>{
              })
         }
 
-        await user.save();
-        const token = await user.generateAuthToken();
-        
-        res.send({success:true,data:user,token})  
+         await user.save();
+         const token = await user.generateAuthToken();
+         user.on('es-indexed',(err,res)=>{
+             if(err){
+                 console.log("err",err);
+                 throw err;
+                 
+             }
+         })
+          
+         return res.send({success:true,data:user,token})
 
     } catch (e) {
         res.status(500).send({success:false,message:"something went wrong",error:e});
@@ -205,6 +212,17 @@ router.post('/updateuserinfo/me',auth, async (req,res)=>{
     }
 });
 
+router.get('/get/users/:query', async (req,res)=>{
+    User.search(
+        {match:{userId:req.params.query}}
+    ,function(err,data){
+        if(err){
+            return res.send({success:false,message:"something went wrong",error:err})
+        }
+
+        res.send({success:true,data});
+    })
+})
 
 
 module.exports = router;

@@ -30,7 +30,7 @@ var upload = multer({
   })
 })
 
-  router.post('/addpost', auth, upload.single('image'), (req,res)=>{
+  router.post('/_food/addpost', auth, upload.single('image'), (req,res)=>{
 
     const userId = req.user.userId;
 
@@ -85,7 +85,7 @@ var upload = multer({
     }
   });
 
-  router.get('/myposts', auth, async (req,res)=>{
+  router.get('/_food/myposts', auth, async (req,res)=>{
     try {
       const posts = await Food.find({userId:req.user.userId});
       if(!posts){

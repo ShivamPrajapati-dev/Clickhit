@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const client = require('../es-client/es-client');
+const mongoosastic = require('mongoosastic');
+
 const schema = mongoose.Schema({
 
     userId:{type:String},
@@ -10,6 +13,8 @@ const schema = mongoose.Schema({
 },{
     timestamps:true
 });
+
+schema.plugin(mongoosastic,{esClient:client});
 
 const model = mongoose.model('recipe',schema);
 module.exports = model;

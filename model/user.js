@@ -1,16 +1,19 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const mongoosastic = require('mongoosastic');
+const client = require('../es-client/es-client');
+
 
 const schema = mongoose.Schema({
     
     userId:{
         type:String,
         unique:true,
-        required:true
+        required:true       
     },
 
-    password:{type:String,required:true},
+    password:{type:String,required:true, es_indexed:false},
 
     name:{
         type:String
@@ -20,13 +23,13 @@ const schema = mongoose.Schema({
         type:Number
     },
 
-    mobile:{type:Number},
+    mobile:{type:Number, es_indexed:false},
 
     email:{type:String},
 
     imageUrl:{type:String},
 
-    imageName:{type:String},
+    imageName:{type:String,es_indexed:false},
 
     tokens:[{
         token:{
@@ -86,6 +89,19 @@ schema.pre('save', async function(next){
 });
 
 
-
+schema.plugin(mongoosastic,{esClient:client});
 const model = mongoose.model('users',schema);
+
+
+
+model.createMapping(function(err, mapping){  
+    if(err){
+      console.log('error creating mapping (you can safely ignore this)');
+      console.log(err);
+    }else{
+      console.log('mapping created!');
+      console.log(mapping);
+    }
+  });
+
 module.exports = model;

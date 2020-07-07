@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3000;
 //==================IMPORTS====================================================
 
 const userRoute = require('./routes/user');
-const foodRoute = require('./routes/post');
+const foodRoute = require('./routes/food-post');
 const followRoute = require('./routes/follow');
 const kitchenRoute = require('./routes/kitchen');
 

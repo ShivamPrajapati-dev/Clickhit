@@ -26,6 +26,7 @@ router.post('/save/recipe/:id', auth, async (req,res)=>{
     } catch (e) {
         res.status(500).send({success:false,message:'something went wrong',error:e})  
     }
+    
 });
 
 router.post('/get/recipe/:id', async (req,res)=>{
@@ -45,6 +46,18 @@ router.post('/get/recipe/:id', async (req,res)=>{
         res.send({success:true,secret:false,data:recipe});
     } catch (e) {
         res.status(500).send({success:false,message:'something went wrong',error:e})  
+    }
+});
+
+router.post('/myrecipes',auth,async (req,res)=>{
+    try{
+        const recipes = await Recipe.find({userId:req.user.userId});
+        if(!recipes || Object.keys(recipes).length == 0){
+            return res.send({success:false, message:"no recipes found"});
+        }
+        res.send({success:true,data:recipes});
+    }catch(e){
+        res.status(500).send({success:false,message:'something went wrong',error:e}); 
     }
 });
 
