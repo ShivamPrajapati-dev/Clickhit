@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/home">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.example.foodypie.ui.home.HomeFragment"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/menu"
+        android:name="com.example.foodypie.ui.Menu.MenuFragment"
+        tools:layout="@layout/fragment_menu" />
+
+    <fragment
+        android:id="@+id/post"
+        android:name="com.example.foodypie.ui.Posts.NewPostsFragment"
+        tools:layout="@layout/fragment_new_posts" />
+
+    <fragment
+        android:id="@+id/follow"
+        android:name="com.example.foodypie.ui.People.PeopleFragment"
+        tools:layout="@layout/people_fragment"/>
+    <activity
+        android:id="@+id/profile"
+        android:name="com.example.foodypie.SearchActivity"
+        tools:layout="@layout/activity_search"/>
+</navigation>

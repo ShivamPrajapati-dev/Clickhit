@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="@string/title" />
+
+    <item
+        android:id="@+id/menu"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_restaurant_black_24"
+        android:title="@string/my_menu" />
+
+    <item
+        android:id="@+id/post"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_add_circle_24"
+        android:title="@string/post_title" />
+
+    <item
+        android:id="@+id/follow"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_group_24"
+        android:title="@string/follow_title" />
+
+    <item
+        android:id="@+id/profile"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_face_24"
+        android:title="@string/profile_title" />
+
+
+
+</menu>
