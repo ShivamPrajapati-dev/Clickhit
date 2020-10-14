@@ -58,12 +58,12 @@ router.post('/adduser', upload.single('pic'), async (req,res)=>{
         return res.status(400).send({success:false,message:"nameis required"})
     }
 
-    if(!req.body.age){
+    if(!req.body.dob){
         return res.status(400).send({success:false,message:"age is required"})
     }
 
-    if(!req.body.mobile){
-        return res.status(400).send({success:false,message:"mobile number is required"})
+    if(!req.body.password){
+        return res.status(400).send({success:false,message:"password is required"})
     }
 
         const userX = await User.exists({userId:req.body.userId});
@@ -125,20 +125,20 @@ router.get('/user/me', auth, (req,res)=>{
     
 });
 
-router.get('/public/profile/:userid', async (req,res)=>{
-    try {
-        const user = await User.findOne({userId:req.params.userid});
-        let publicProfile = {
-            name:user.name,
-            imageUrl:user.imageUrl
-        };
-        res.send({success:true,data:publicProfile});
-    } catch (e) {
-        res.status(500).send({success:false,message:"something went wrong",error:e});
-    }
-})
+// router.get('/public/profile/:userid', async (req,res)=>{
+//     try {
+//         const user = await User.findOne({userId:req.params.userid});
+//         let publicProfile = {
+//             name:user.name,
+//             imageUrl:user.imageUrl
+//         };
+//         res.send({success:true,data:publicProfile});
+//     } catch (e) {
+//         res.status(500).send({success:false,message:"something went wrong",error:e});
+//     }
+// })
 
-router.post('/user/me/logout', auth, async (req,res)=>{
+router.get('/user/me/logout', auth, async (req,res)=>{
 
     try {
         req.user.tokens = req.user.tokens.filter((token)=>{            
@@ -212,17 +212,17 @@ router.post('/updateuserinfo/me',auth, async (req,res)=>{
     }
 });
 
-router.get('/get/users/:query', async (req,res)=>{
-    User.search(
-        {match:{userId:req.params.query}}
-    ,function(err,data){
-        if(err){
-            return res.send({success:false,message:"something went wrong",error:err})
-        }
+// router.get('/get/users/:query', async (req,res)=>{
+//     User.search(
+//         {match:{userId:req.params.query}}
+//     ,function(err,data){
+//         if(err){
+//             return res.send({success:false,message:"something went wrong",error:err})
+//         }
 
-        res.send({success:true,data});
-    })
-})
+//         res.send({success:true,data});
+//     })
+// })
 
 
 module.exports = router;
