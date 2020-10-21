@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".PostPager.Camera.CameraFragment"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:id="@+id/camera_preview"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="match_parent"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/front_cam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/button_capture"
+        app:layout_constraintTop_toTopOf="@id/button_capture"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="25dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/flash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/button_capture"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/button_capture"
+        android:layout_marginEnd="25dp"
+        android:src="@drawable/ic_baseline_flash_off_24"/>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_capture"
+        android:layout_width="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/flash"
+        app:layout_constraintStart_toStartOf="@id/front_cam"
+        app:backgroundTint="#AFAFAD"
+        app:borderWidth="4dp"
+        android:elevation="8dp"
+        app:elevation="8dp"
+        android:layout_marginBottom="25dp"
+        android:backgroundTint="#fff"
+        android:layout_height="64dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

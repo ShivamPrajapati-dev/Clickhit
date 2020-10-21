@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
+    tools:context=".Auth.UserInfo">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginVertical="20dp"
+            android:src="@drawable/profile_placeholder"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/dp"
+            android:layout_alignBottom="@id/dp"
+            android:layout_marginStart="24dp"
+            app:fabSize="mini"
+            android:backgroundTint="@color/colorAccent"
+            app:backgroundTint="@color/colorAccent"
+            app:layout_anchor="@id/dp"
+            android:src="@drawable/ic_baseline_add_24"
+            app:layout_anchorGravity="bottom|right"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/create_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"
+        android:text="@string/add_pic"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxBackgroundColor="@color/colorPrimary"
+        android:padding="10dp"
+        app:errorEnabled="true"
+        android:layout_marginTop="30dp"
+        app:boxStrokeColor="@color/colorAccent"
+        app:startIconDrawable="@drawable/ic_person_black_18dp"
+        app:hintTextColor="@color/colorAccent"
+        android:hint="@string/name">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:id="@+id/user_name"
+            android:textCursorDrawable="@null"
+            android:textColor="@color/colorAccent"
+            android:layout_height="match_parent"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxBackgroundColor="@color/colorPrimary"
+        android:padding="10dp"
+        app:errorEnabled="true"
+        android:layout_marginTop="30dp"
+        app:boxStrokeColor="@color/colorAccent"
+        app:startIconDrawable="@drawable/ic_outline_format_align_left_24"
+        app:hintTextColor="@color/colorAccent"
+        android:hint="@string/bio">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:id="@+id/bio"
+            android:textCursorDrawable="@null"
+            android:textColor="@color/colorAccent"
+            android:layout_height="match_parent"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxBackgroundColor="@color/colorPrimary"
+        android:padding="10dp"
+        app:errorEnabled="true"
+        android:layout_marginTop="30dp"
+        app:boxStrokeColor="@color/colorAccent"
+        app:startIconDrawable="@drawable/ic_baseline_calendar_today_24"
+        app:hintTextColor="@color/colorAccent"
+        android:hint="@string/dob">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:id="@+id/date"
+            android:inputType="date"
+            android:textCursorDrawable="@null"
+            android:textColor="@color/colorAccent"
+            android:layout_height="match_parent"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/next"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="10dp"
+        android:text="@string/next"
+        android:textColor="@color/colorAccent"
+        app:rippleColor="@color/colorAccentLight"
+        app:strokeColor="@color/colorAccent" />
+
+
+
+</LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.Post.PostFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:rowCount="3"
+            android:columnCount="1">
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/food_card"
+                android:layout_margin="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:strokeWidth="1dp"
+                app:cardBackgroundColor="#81C784"
+                app:strokeColor="@color/stroke_color"
+                app:cardElevation="0dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_rowWeight="0.33"
+                android:layout_row="0"
+                android:layout_column="0">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/title_food"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_width="wrap_content"
+                        android:textStyle="bold"
+                        android:textColor="#fff"
+                        android:textSize="30sp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/food_post_title"
+                        android:layout_height="wrap_content"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/food_subtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/title_food"
+                        android:textColor="#fff"
+                        android:layout_marginHorizontal="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                        android:text="@string/subtitle_food_body"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/food_subtitle"
+                        android:layout_marginTop="20dp"
+                        android:textColor="#fff"
+                        android:layout_marginHorizontal="10dp"
+                        android:padding="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:text="@string/food_body"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/sketch_card"
+                android:layout_margin="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:strokeWidth="1dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:strokeColor="@color/stroke_color"
+                app:cardElevation="0dp"
+                android:layout_rowWeight="0.33"
+                app:cardBackgroundColor="#E57373"
+                android:layout_row="1"
+                android:layout_column="0">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/title_sketch"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_width="wrap_content"
+                        android:textStyle="bold"
+                        android:textColor="#fff"
+                        android:textSize="30sp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/sketch_post_title"
+                        android:layout_height="wrap_content"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/sketch_subtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/title_sketch"
+                        android:textColor="#fff"
+                        android:layout_marginHorizontal="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                        android:text="@string/subtitle_sketch_body"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/sketch_subtitle"
+                        android:layout_marginTop="20dp"
+                        android:textColor="#fff"
+                        android:layout_marginHorizontal="10dp"
+                        android:padding="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:text="@string/sketch_body"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/quotes_card"
+                android:layout_margin="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:strokeWidth="1dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_rowWeight="0.33"
+                app:cardBackgroundColor="#7986CB"
+                app:strokeColor="@color/stroke_color"
+                app:cardElevation="0dp"
+                android:layout_row="2"
+                android:layout_column="0">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/title_quotes"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_width="wrap_content"
+                        android:textStyle="bold"
+                        android:textColor="#fff"
+                        android:textSize="30sp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/quote_post_title"
+                        android:layout_height="wrap_content"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/quote_subtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/title_quotes"
+                        android:textColor="#fff"
+                        android:layout_marginHorizontal="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                        android:text="@string/subtitle_quotes_body"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/quote_subtitle"
+                        android:layout_marginTop="20dp"
+                        android:textColor="#fff"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginHorizontal="10dp"
+                        android:padding="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:text="@string/quote_body"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+        </GridLayout>
+        
+        
+    </RelativeLayout>
+
+
+
+</androidx.core.widget.NestedScrollView>
