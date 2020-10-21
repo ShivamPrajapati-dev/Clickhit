@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@+id/home">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.example.clickhit.ui.Home.HomeFragment"
+        tools:layout="@layout/home_fragment" />
+
+    <fragment
+        android:id="@+id/search"
+        android:name="com.example.clickhit.ui.Search.SearchFragment"
+        tools:layout="@layout/search_fragment" >
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/fav"
+        android:name="com.example.clickhit.ui.Follow.FollowFragment"
+        tools:layout="@layout/follow_fragment" />
+
+
+    <fragment
+        android:id="@+id/notification"
+        android:name="com.example.clickhit.ui.Notification.NotificationFragment"
+        tools:layout="@layout/notification_fragment" />
+
+    <fragment
+        android:id="@+id/post"
+        android:name="com.example.clickhit.ui.Post.PostFragment"
+        tools:layout="@layout/post_fragment" />
+    <activity
+        android:id="@+id/profile"
+        android:name="com.example.clickhit.drawer.Profile.ProfileActivity"
+        tools:layout="@layout/activity_profile" />
+
+    <activity
+        android:id="@+id/activity"
+        android:name="com.example.clickhit.drawer.Activity.MyActivities"
+        tools:layout="@layout/activity_my_activities" />
+    <activity
+        android:id="@+id/library"
+        android:name="com.example.clickhit.drawer.Library.PhotoLibraryActivity"
+        tools:layout="@layout/activity_photo_library" />
+    <activity
+        android:id="@+id/menu"
+        android:name="com.example.clickhit.drawer.Menu.MenuActivity"
+        tools:layout="@layout/activity_menu" />
+    <activity
+        android:id="@+id/settings"
+        android:name="com.example.clickhit.drawer.Settings.SettingsActivity"
+        tools:layout="@layout/activity_settings" />
+    <activity
+        android:id="@+id/privacy_policy"
+        android:name="com.example.clickhit.drawer.PrivacyPolicy.PolicyActivity"
+        tools:layout="@layout/activity_policy" />
+    <activity
+        android:id="@+id/help"
+        android:name="com.example.clickhit.drawer.Help.HelpAndSupportActivity"
+        tools:layout="@layout/activity_help_and_support" />
+
+</navigation>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".drawer.Help.HelpAndSupportActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+        app:title="@string/send_feed">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/next"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="10dp"
+            android:text="@string/next"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            app:rippleColor="@color/colorAccent" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/review"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint"
+        android:padding="10dp"
+        app:errorEnabled="true"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/review_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ssimage1"
+        android:layout_width="100dp"
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/screenshot"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/review" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/close1"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/ic_baseline_cancel_24"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/review" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/ss1"
+        android:layout_width="100dp"
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/screenshot"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:text="+"
+        android:textSize="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@id/review" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ssimage2"
+        android:layout_width="100dp"
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/screenshot"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+
+        app:layout_constraintStart_toEndOf="@id/ss1"
+
+        app:layout_constraintTop_toBottomOf="@id/review" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/close2"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/ic_baseline_cancel_24"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+
+        app:layout_constraintStart_toEndOf="@id/ss1"
+
+        app:layout_constraintTop_toBottomOf="@id/review" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/ss2"
+        android:layout_width="100dp"
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/screenshot"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:text="+"
+        android:textSize="30dp"
+        app:layout_constraintStart_toEndOf="@id/ss1"
+
+        app:layout_constraintTop_toBottomOf="@id/review" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/warning"
+        app:layout_constraintTop_toBottomOf="@id/ss1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
