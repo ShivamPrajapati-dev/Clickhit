@@ -48,19 +48,19 @@ const s3 =  new AWS.S3({
     })
   })
 
-router.post('/adduser', upload.single('pic'), async (req,res)=>{
-
+router.post('/adduser', async (req,res)=>{
+    
     if(!req.body.userId){
         return res.status(400).send({success:false,message:"user id is required"})
     }
 
     if(!req.body.name){
-        return res.status(400).send({success:false,message:"nameis required"})
+        return res.status(400).send({success:false,message:"name is required"})
     }
 
-    if(!req.body.dob){
-        return res.status(400).send({success:false,message:"age is required"})
-    }
+    // if(!req.body.dob){
+    //     return res.status(400).send({success:false,message:"age is required"})
+    // }
 
     if(!req.body.password){
         return res.status(400).send({success:false,message:"password is required"})
@@ -77,31 +77,25 @@ router.post('/adduser', upload.single('pic'), async (req,res)=>{
     try {
         
         let user;       
+        
+        // if(req.file){
 
-        if(req.file){
-
-            user = new User({
-                ...req.body,
-                imageUrl:req.file.location,
-                imageName:req.file.key
-             });
+        //     user = new User({
+        //         ...req.body,
+        //         imageUrl:req.file.location,
+        //         imageName:req.file.key
+        //      });
            
-        }else{
+        // }else{
             user = new User({
                 ...req.body
              })
-        }
+      //  }
 
          await user.save();
+         console.log(user);
          const token = await user.generateAuthToken();
-         user.on('es-indexed',(err,res)=>{
-             if(err){
-                 console.log("err",err);
-                 throw err;
-                 
-             }
-         })
-          
+          console.log(token);
          return res.send({success:true,data:user,token})
 
     } catch (e) {

@@ -11,34 +11,47 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.clickhit.MainActivity;
+import com.example.clickhit.Network.RetrofitInitialize;
+import com.example.clickhit.Prefs;
 import com.example.clickhit.R;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
 import com.theartofdev.edmodo.cropper.CropImage;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UserInfo extends AppCompatActivity {
 
-    TextInputEditText dob;
-    MaterialDatePicker builder;
-    FloatingActionButton floatingActionButton;
-    CircleImageView imageView;
-    TextInputLayout textInputLayout_username;
-    Button next;
-    TextInputEditText username;
+    private TextInputEditText dob;
+    private MaterialDatePicker builder;
+    private FloatingActionButton floatingActionButton;
+    private CircleImageView imageView;
+    private TextInputLayout textInputLayout_username;
+    private Button next;
+    private TextInputEditText username;
+    private RetrofitInitialize retrofitInitialize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +64,8 @@ public class UserInfo extends AppCompatActivity {
         imageView = findViewById(R.id.dp);
         floatingActionButton = findViewById(R.id.fab);
         username = findViewById(R.id.user_name);
+        retrofitInitialize = new RetrofitInitialize();
+
         dob.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -88,8 +103,9 @@ public class UserInfo extends AppCompatActivity {
                 if(TextUtils.isEmpty(username.getText().toString())){
                     textInputLayout_username.setError("Enter your name");
                 }else{
-                    startActivity(new Intent(UserInfo.this,MainActivity.class));
-                    finish();
+
+                    signup();
+
                 }
             }
         });
@@ -111,6 +127,42 @@ public class UserInfo extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void signup() {
+        HashMap<String,String> map = new HashMap<>();
+        map.put("userId",getIntent().getStringExtra("username"));
+        map.put("name",username.getText().toString().trim());
+        map.put("password",getIntent().getStringExtra("password"));
+
+        Call<Object> call = retrofitInitialize.init().addUser(map);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if(response.code() == 200){
+
+                    String json = new Gson().toJson(response.body());
+                    JSONObject jsons = null;
+                    try {
+                        jsons = new JSONObject(json);
+                        Prefs.saveToken(UserInfo.this,jsons.getString("token"));
+
+                        startActivity(new Intent(UserInfo.this,MainActivity.class));
+                        finish();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }else{
+                    Toast.makeText(UserInfo.this,String.valueOf(response.code()),Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Toast.makeText(UserInfo.this,t.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 
