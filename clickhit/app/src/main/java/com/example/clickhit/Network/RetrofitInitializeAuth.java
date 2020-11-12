@@ -13,7 +13,7 @@ public class RetrofitInitializeAuth {
 
     public Retrofit retrofit;
     public APIInterface apiInterface;
-    public static String BASE_URL = "http://4c3b2fc2fae7.ngrok.io";
+    public static String BASE_URL = "https://3287afeb705c.ngrok.io";
 
     public APIInterface init(final String token) {
 

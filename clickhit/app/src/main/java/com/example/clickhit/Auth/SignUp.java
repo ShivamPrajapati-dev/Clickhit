@@ -57,7 +57,10 @@ public class SignUp extends AppCompatActivity{
                 } else if (!TextUtils.equals(password.getText().toString().trim(), confirm_password.getText().toString().trim())) {
                     textInputLayout_confirm_password.setError("Password not matched");
                 } else {
-                    startActivity(new Intent(SignUp.this, UserInfo.class));
+                    Intent intent = new Intent(SignUp.this, UserInfo.class);
+                    intent.putExtra("username",username.getText().toString().trim());
+                    intent.putExtra("password",confirm_password.getText().toString().trim());
+                    startActivity(intent);
                     finish();
                 }
             }

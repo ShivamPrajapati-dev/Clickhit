@@ -5,9 +5,14 @@ import com.example.clickhit.Model.Me;
 import com.example.clickhit.Model.User;
 import com.google.gson.JsonObject;
 
+import java.util.HashMap;
+
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -18,13 +23,8 @@ public interface APIInterface {
 
     //================================= User =======================================
 
-    @Multipart
     @POST("/adduser")                                               // without auth
-    Call<AddUserResponse> addUser(@Part("userId") String userId,
-                                  @Part("name") String name,
-                                  @Part("password") String password,
-                                  @Part("dob") String dob,
-                                  @Part("pic") MultipartBody.Part pic);
+    Call<Object> addUser(@Body HashMap<String,String> map);
 
     @GET("/user/me")
     Call<Me> getProfile();
