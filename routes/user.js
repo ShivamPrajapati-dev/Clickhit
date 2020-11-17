@@ -17,7 +17,8 @@ require('dotenv').config()
 
 const s3 =  new AWS.S3({
     accessKeyId: process.env.ID,
-    secretAccessKey: process.env.SECRET
+    secretAccessKey: process.env.SECRET,
+    region:'ap-south-1'
 });
 
 
@@ -48,8 +49,10 @@ const s3 =  new AWS.S3({
     })
   })
 
-router.post('/adduser', async (req,res)=>{
+router.post('/adduser', upload.single("pic"), async (req,res)=>{
     
+    console.log(req.body);
+  
     if(!req.body.userId){
         return res.status(400).send({success:false,message:"user id is required"})
     }
@@ -78,19 +81,19 @@ router.post('/adduser', async (req,res)=>{
         
         let user;       
         
-        // if(req.file){
+        if(req.file){
 
-        //     user = new User({
-        //         ...req.body,
-        //         imageUrl:req.file.location,
-        //         imageName:req.file.key
-        //      });
+            user = new User({
+                ...req.body,
+                imageUrl:req.file.location,
+                imageName:req.file.key
+             });
            
-        // }else{
+        }else{
             user = new User({
                 ...req.body
              })
-      //  }
+        }
 
          await user.save();
          console.log(user);
