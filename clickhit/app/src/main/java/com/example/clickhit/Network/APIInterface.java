@@ -22,9 +22,9 @@ import retrofit2.http.Query;
 public interface APIInterface {
 
     //================================= User =======================================
-
-    @POST("/adduser")                                               // without auth
-    Call<Object> addUser(@Body HashMap<String,String> map);
+    @Multipart
+    @POST("/adduser?grantType=value")                                               // without auth
+    Call<Object> addUser(@Part MultipartBody.Part userId,@Part MultipartBody.Part name,@Part MultipartBody.Part password, @Part MultipartBody.Part part);
 
     @GET("/user/me")
     Call<Me> getProfile();

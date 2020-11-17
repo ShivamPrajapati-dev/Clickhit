@@ -31,6 +31,7 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -38,6 +39,9 @@ import java.util.Locale;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,6 +56,7 @@ public class UserInfo extends AppCompatActivity {
     private Button next;
     private TextInputEditText username;
     private RetrofitInitialize retrofitInitialize;
+    private String path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,7 +140,15 @@ public class UserInfo extends AppCompatActivity {
         map.put("name",username.getText().toString().trim());
         map.put("password",getIntent().getStringExtra("password"));
 
-        Call<Object> call = retrofitInitialize.init().addUser(map);
+        JSONObject json = new JSONObject(map);
+        String body = json.toString();
+        File file = new File(path);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"),file);
+        MultipartBody.Part part = MultipartBody.Part.createFormData("pic",file.getName(),requestBody);
+        MultipartBody.Part userId = MultipartBody.Part.createFormData("userId", Objects.requireNonNull(getIntent().getStringExtra("username")));
+        MultipartBody.Part name = MultipartBody.Part.createFormData("name",username.getText().toString().trim());
+        MultipartBody.Part password = MultipartBody.Part.createFormData("password", Objects.requireNonNull(getIntent().getStringExtra("password")));
+        Call<Object> call = retrofitInitialize.init().addUser(userId,name,password,part);
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call call, Response response) {
@@ -176,6 +189,8 @@ public class UserInfo extends AppCompatActivity {
                 if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
                     CropImage.ActivityResult result = CropImage.getActivityResult(data);
                     Uri resultUri = Objects.requireNonNull(result).getUri();
+                    //Toast.makeText(UserInfo.this,resultUri.getPath(),Toast.LENGTH_LONG).show();
+                    path = resultUri.getPath();
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
                         imageView.setImageBitmap(bitmap);
