@@ -23,8 +23,13 @@ public interface APIInterface {
 
     //================================= User =======================================
     @Multipart
-    @POST("/adduser?grantType=value")                                               // without auth
-    Call<Object> addUser(@Part MultipartBody.Part userId,@Part MultipartBody.Part name,@Part MultipartBody.Part password, @Part MultipartBody.Part part);
+    @POST("/adduser")                                               // without auth
+    Call<Object> addUser(@Part MultipartBody.Part userId,
+                         @Part MultipartBody.Part name,
+                         @Part MultipartBody.Part password,
+                         @Part MultipartBody.Part age,
+                         @Part MultipartBody.Part bio,
+                         @Part MultipartBody.Part part);
 
     @GET("/user/me")
     Call<Me> getProfile();

@@ -102,6 +102,7 @@ router.post('/adduser', upload.single("pic"), async (req,res)=>{
          return res.send({success:true,data:user,token})
 
     } catch (e) {
+        console.log(e);
         res.status(500).send({success:false,message:"something went wrong",error:e});
     }
 
