@@ -18,8 +18,12 @@ const schema = mongoose.Schema({
         type:String
     },
 
+    bio:{
+        type:String
+    },
+
     age:{
-        type:Number
+        type:String
     },
 
     mobile:{type:Number},
