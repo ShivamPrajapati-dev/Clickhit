@@ -7,6 +7,7 @@ const User = require('../model/user');
 const client = require('../redis-client/client');
 const auth = require('../middleware/auth');
 const userfeed = require('../middleware/userfeed');
+const cache = require('../middleware/cache');
 const AWS = require('aws-sdk');
 const multerS3 = require('multer-s3')
 require('dotenv').config()
@@ -118,8 +119,8 @@ router.post('/user/login', async (req,res)=>{
     }
 });
 
-router.get('/user/me', auth, (req,res)=>{
-    res.send({success:true,data:req.user});
+router.get('/user/me',cache, auth, (req,res)=>{
+    res.send({user:req.user});
     
 });
 

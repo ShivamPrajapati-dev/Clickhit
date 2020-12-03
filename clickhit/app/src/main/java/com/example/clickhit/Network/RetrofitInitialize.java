@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitInitialize {
     public Retrofit retrofit;
     public APIInterface apiInterface;
-    public static String BASE_URL = "https://8970c90f7999.ngrok.io";
+    public static String BASE_URL = "https://897640b4d2fc.ngrok.io";
 
     public APIInterface init() {
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()

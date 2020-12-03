@@ -29,7 +29,7 @@ app.use(kitchenRoute);
 
 mongoose
   .connect(
-    "mongodb+srv://communitykitchen:Shivam@6239@cluster0-wstkd.mongodb.net/test",
+    `mongodb+srv://communitykitchen:${process.env.PASSWORD}@cluster0-wstkd.mongodb.net/test`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,

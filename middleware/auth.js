@@ -5,20 +5,24 @@ const client = require('../redis-client/client');
 const auth = async (req,res,next)=>{
 
     if(req.hasData){
+        console.log(req.hasData);
         next();
+        return;
     }
 
     try {
         const token = req.header('Authorization').replace('Bearer ','');
         const decoded = jwt.verify(token,'jwtsecret');
-        const user = await User.findOne({_id:decoded._id,'tokens.token':token});
+        const user = await User.findOne({userId:decoded._id,'tokens.token':token});
 
         if(!user){
             throw new Error('please authenticate');
         }
         req.token = token;
         req.user = user;
-    
+        const key = '__user__'+user.userId;
+        console.log(key);
+        client.setex(key,60,JSON.stringify(user));
         next();
         
     } catch (e) {

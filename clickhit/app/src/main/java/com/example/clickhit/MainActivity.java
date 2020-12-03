@@ -1,6 +1,10 @@
 package com.example.clickhit;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,10 +17,19 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.bumptech.glide.Glide;
+import com.example.clickhit.Network.RetrofitInitializeAuth;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements NavController.OnDestinationChangedListener {
 
@@ -24,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
     private AppBarConfiguration mAppBarConfiguration;
     MaterialToolbar toolbar;
     TextInputLayout searchBar;
+    View view;
+    RetrofitInitializeAuth retrofitInitializeAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +58,11 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
                 .setDrawerLayout(drawer)
                 .build();
         NavigationView navigationView = findViewById(R.id.nav_view);
+
+        view = navigationView.getHeaderView(0);
+
+        setUserProfile();
+
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
@@ -50,6 +70,36 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
         NavigationUI.setupWithNavController(navigationView, navController);
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
         navController.addOnDestinationChangedListener(this);
+    }
+
+    private void setUserProfile() {
+        retrofitInitializeAuth = new RetrofitInitializeAuth();
+        Call<Object> call = retrofitInitializeAuth.init(Prefs.getToken(this)).getProfile();
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if (response.code() == 200) {
+                    String json = new Gson().toJson(response.body());
+                    JSONObject object = null;
+                    try {
+                        object = new JSONObject(json);
+                        String name = object.getJSONObject("user").getString("name");
+                        String url = object.getJSONObject("user").getString("imageUrl");
+                        Glide.with(MainActivity.this).load(url).into((ImageView) view.findViewById(R.id.profile_pic));
+                        TextView textView = view.findViewById(R.id.name);
+                        textView.setText(name);
+                        Toast.makeText(MainActivity.this,"name",Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(MainActivity.this, json, Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                Toast.makeText(MainActivity.this, t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 

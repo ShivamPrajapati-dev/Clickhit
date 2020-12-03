@@ -32,7 +32,7 @@ public interface APIInterface {
                          @Part MultipartBody.Part part);
 
     @GET("/user/me")
-    Call<Me> getProfile();
+    Call<Object> getProfile();
 
     @POST("/user/login")                                          //without auth
     Call<User> login(@Body User user);
