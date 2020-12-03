@@ -8,7 +8,7 @@ const cache = (req,res,next)=>{
     const decoded = jwt.verify(token,'jwtsecret');
     const key = '__user__'+decoded._id.toString();
     try {
-        client.get(key,(err,data)=>{
+        client.get(key,(err,data)=>{    
 
             if(err) throw err;
     
