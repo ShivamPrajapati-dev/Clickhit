@@ -28,11 +28,11 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         animation = findViewById(R.id.anim);
         initialize = new RetrofitInitializeAuth();
-        Call<Me> call = initialize.init(Prefs.getToken(this)).getProfile();
+        Call<Object> call = initialize.init(Prefs.getToken(this)).getProfile();
 
-        call.enqueue(new Callback<Me>() {
+        call.enqueue(new Callback<Object>() {
             @Override
-            public void onResponse(Call<Me> call, Response<Me> response) {
+            public void onResponse(Call<Object> call, Response<Object> response) {
                 if(!response.isSuccessful()){
                     Intent intent = new Intent(SplashScreen.this,SignUp.class);
                     startActivity(intent);
@@ -45,7 +45,7 @@ public class SplashScreen extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Me> call, Throwable t) {
+            public void onFailure(Call<Object> call, Throwable t) {
                 Toast.makeText(SplashScreen.this,t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
