@@ -1,13 +1,14 @@
 package com.example.clickhit.ui.Post.Food;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageView;
-
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.clickhit.R;
@@ -30,10 +31,10 @@ public class ShareFoodPostActivity extends AppCompatActivity {
         final LayoutInflater inflater = getLayoutInflater();
         ingredientLayout = findViewById(R.id.ingredient_layout);
         recipeLayout = findViewById(R.id.recipe_layout);
-         MaterialButton share = findViewById(R.id.share);
+        MaterialButton share = findViewById(R.id.share);
         Intent intent = getIntent();
         String uri = intent.getStringExtra("uri");
-         AppCompatImageView imageView = findViewById(R.id.main_image);
+        AppCompatImageView imageView = findViewById(R.id.main_image);
 
         Glide.with(this).load(uri).placeholder(R.drawable.placeholder).centerCrop().into(imageView);
 
@@ -43,15 +44,15 @@ public class ShareFoodPostActivity extends AppCompatActivity {
         newIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final View view = inflater.inflate(R.layout.ingredient_view,null);
+                final View view = inflater.inflate(R.layout.ingredient_view, null);
                 list_ing.add(view);
-                view.setTag(list_ing.size()-1);
+                view.setTag(list_ing.size() - 1);
                 view.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
                         ingredientLayout.removeView(view);
-                            list_ing.remove(view);
+                        list_ing.remove(view);
                     }
                 });
 
@@ -67,9 +68,9 @@ public class ShareFoodPostActivity extends AppCompatActivity {
         newRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final View view = inflater.inflate(R.layout.recipe_view,null);
+                final View view = inflater.inflate(R.layout.recipe_view, null);
                 list_rec.add(view);
-                view.setTag(list_rec.size()-1);
+                view.setTag(list_rec.size() - 1);
                 view.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -89,18 +90,13 @@ public class ShareFoodPostActivity extends AppCompatActivity {
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
             }
         });
 
 
-
-
-
-
-
-
     }
+
+
 
 
 }
