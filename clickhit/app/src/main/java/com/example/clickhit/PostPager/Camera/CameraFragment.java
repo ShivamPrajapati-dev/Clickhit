@@ -3,6 +3,7 @@ package com.example.clickhit.PostPager.Camera;
 import android.Manifest;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.net.Uri;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,18 +28,16 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.clickhit.PostPager.Camera.CameraPreview.CameraPreview;
 import com.example.clickhit.R;
+import com.example.clickhit.ui.Post.Food.ShareFoodPostActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.security.Policy;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
-
-import static android.content.ContentValues.TAG;
 
 public class CameraFragment extends Fragment {
 
@@ -45,7 +45,9 @@ public class CameraFragment extends Fragment {
     private static Camera mCamera;
     private CameraPreview mPreview;
     FrameLayout preview;
-
+    AppCompatImageView select, delete, flash;
+    FloatingActionButton capture;
+    String path = null;
 
     private static void oldOpenCamera() {
         try {
@@ -59,10 +61,9 @@ public class CameraFragment extends Fragment {
 
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
-
             File pictureFile = getOutputMediaFile(MEDIA_TYPE_IMAGE);
             if (pictureFile == null) {
-                Log.d(TAG, "Error creating media file, check storage permissions");
+                Log.d("Shivam", "Error creating media file, check storage permissions");
                 return;
             }
 
@@ -79,11 +80,21 @@ public class CameraFragment extends Fragment {
                 ContentResolver contentResolver = requireContext().getContentResolver();
 
                 contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+                path = f.getAbsolutePath();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        select.setVisibility(View.VISIBLE);
+                        delete.setVisibility(View.VISIBLE);
+                        capture.setVisibility(View.INVISIBLE);
+                        flash.setVisibility(View.INVISIBLE);
 
+                    }
+                });
             } catch (FileNotFoundException e) {
-                Log.d(TAG, "File not found: " + e.getMessage());
+                Log.d("Shivam", "File not found: " + e.getMessage());
             } catch (IOException e) {
-                Log.d(TAG, "Error accessing file: " + e.getMessage());
+                Log.d("Shivam", "Error accessing file: " + e.getMessage());
             }
         }
     };
@@ -175,7 +186,10 @@ public class CameraFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.camera_fragment, container, false);
-        final AppCompatImageView flash = view.findViewById(R.id.flash);
+        flash = view.findViewById(R.id.flash);
+        select = view.findViewById(R.id.select);
+        delete = view.findViewById(R.id.delete);
+
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             newOpenCamera();
 
@@ -190,10 +204,10 @@ public class CameraFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Camera.Parameters parameters = mCamera.getParameters();
-                if(parameters.getFlashMode().equals(Camera.Parameters.FLASH_MODE_OFF)){
+                if (parameters.getFlashMode().equals(Camera.Parameters.FLASH_MODE_OFF)) {
                     parameters.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
                     flash.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_flash_on_24));
-                }else{
+                } else {
                     parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
                     flash.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_flash_off_24));
                 }
@@ -201,7 +215,8 @@ public class CameraFragment extends Fragment {
             }
         });
 
-        FloatingActionButton capture = view.findViewById(R.id.button_capture);
+
+        capture = view.findViewById(R.id.button_capture);
         capture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -209,6 +224,32 @@ public class CameraFragment extends Fragment {
 
             }
         });
+
+        select.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCamera.release();
+                mCamera = null;
+                Intent intent = new Intent(getContext(), ShareFoodPostActivity.class);
+                intent.putExtra("uri", path);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Discarded", Toast.LENGTH_SHORT).show();
+                mCamera.stopPreview();
+                mCamera.startPreview();
+                select.setVisibility(View.INVISIBLE);
+                delete.setVisibility(View.INVISIBLE);
+                capture.setVisibility(View.VISIBLE);
+                flash.setVisibility(View.VISIBLE);
+            }
+        });
+
         return view;
     }
 
@@ -240,5 +281,12 @@ public class CameraFragment extends Fragment {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode);
     }
 
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mCamera != null) {
+            mCamera.release();        // release the camera for other applications
+            mCamera = null;
+        }
+    }
 }
