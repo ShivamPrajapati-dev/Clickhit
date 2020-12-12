@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema({
     
-    imageUrl:{type:String},
-    name:{type:String},
+    imageUrl:{type:String}, //user image
+    name:{type:String},     // user name
     userId:{type:String,required:true},
     text:{type:String},
     activityId:{type:mongoose.Schema.Types.ObjectId} //postId 
