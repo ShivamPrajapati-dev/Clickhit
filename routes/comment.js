@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
-const Comment = require('../model/comment');
+const Comment = require('../comments-like-service/src/model/comment');
 
 router.post('/addcomment/:id', auth,async (req,res)=>{
     const activityId = req.params.id;
