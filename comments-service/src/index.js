@@ -6,7 +6,10 @@ const mongoose = require('mongoose');
 
 
 const {
-    postComment
+    postComment,
+    patchComment,
+    delete_Comment,
+    read_Comment
 } = require('./controller/index')
 const makeCallback = require('./express-callback');
 
@@ -15,7 +18,10 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.get('/getcomment', makeCallback(read_Comment));
 app.post('/addcomment',makeCallback(postComment));
+app.patch('/editcomment', makeCallback(patchComment));
+app.delete('/deletecomment', makeCallback(delete_Comment));
 
 mongoose
     .connect(process.env.MONGO_URL, {
