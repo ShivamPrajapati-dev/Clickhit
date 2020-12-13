@@ -4,7 +4,7 @@ const schema = mongoose.Schema({
     userId:{type:mongoose.Schema.Types.ObjectId},
     activityId:{type:mongoose.Schema.Types.ObjectId},  //postId or commentId
     active:{type:Boolean},
-    type:{type:String}
+    type:{type:String}        // post like or comment like
 },{
     timestamps:true
 });

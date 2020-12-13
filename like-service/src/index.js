@@ -1,27 +1,22 @@
 require('dotenv').config();
 const express = require('express');
-const bodyParser = require('body-parser');
+const bodyParser =require('body-parser');
 
 const mongoose = require('mongoose');
 
-
 const {
-    postComment,
-    patchComment,
-    delete_Comment,
-    read_Comment
-} = require('./controller')
+    postLike,
+    removeLike
+} = require('./controller');
+
 const makeCallback = require('./express-callback');
 
-
 const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
-app.get('/getcomment', makeCallback(read_Comment));
-app.post('/addcomment',makeCallback(postComment));
-app.patch('/editcomment', makeCallback(patchComment));
-app.delete('/deletecomment', makeCallback(delete_Comment));
+app.post('/addlike', makeCallback(postLike));
+app.delete('/deletelike', makeCallback(removeLike));
 
 mongoose
     .connect(process.env.MONGO_URL, {
@@ -35,5 +30,4 @@ mongoose
         }).catch(e=>{
             console.log(e);
         })
-
 
