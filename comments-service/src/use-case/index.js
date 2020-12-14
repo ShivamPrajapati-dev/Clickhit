@@ -5,6 +5,7 @@ const makeEditComment = require('./edit-comment');
 const makeDeleteComment = require('./delete-comment');
 const makeGetComment = require('./get-comment');
 
+
 const addComment = makeAddComment({Comment});
 const editComment = makeEditComment({Comment});
 const deleteComment = makeDeleteComment({Comment});
