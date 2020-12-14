@@ -6,7 +6,8 @@ const mongoose = require('mongoose');
 
 const {
     postLike,
-    removeLike
+    removeLike,
+    readLikes
 } = require('./controller');
 
 const makeCallback = require('./express-callback');
@@ -15,6 +16,7 @@ const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
+app.get('/getlikes', makeCallback(readLikes));
 app.post('/addlike', makeCallback(postLike));
 app.delete('/deletelike', makeCallback(removeLike));
 
