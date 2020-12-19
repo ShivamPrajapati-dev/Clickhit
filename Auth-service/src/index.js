@@ -8,12 +8,13 @@ app.use(bodyParser.json());
 
 const {
     postConsumer,
-    postJWT
+    postJWT,
+    getConsumer
 } = require('./contoller');
 const makeCallback = require('./express-callback');
 
 app.post('/addconsumer', makeCallback(postConsumer,postJWT));
-
+app.post('/loginconsumer', makeCallback(getConsumer,postJWT));
 
 app.listen(3000,()=>{
     console.log('listening on post 3000');
