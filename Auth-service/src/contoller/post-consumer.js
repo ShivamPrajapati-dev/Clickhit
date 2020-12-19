@@ -12,21 +12,11 @@ module.exports = function makePostConsumer({addConsumer}){
                     'Content-Type': 'application/json',
                 },
                 statusCode: 201,
-                body: posted
+                body: posted.data
             }
 
         } catch (e) {
-            
-            return {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                statusCode: 400,
-                body:{
-                    error:e.message
-                }
-            }
-
+                throw new Error(e.message);
         }
     }
 

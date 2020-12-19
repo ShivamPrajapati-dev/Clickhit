@@ -12,8 +12,8 @@ const {
 } = require('./contoller');
 const makeCallback = require('./express-callback');
 
-app.post('/addconsumer', makeCallback(postConsumer));
-app.post('/createjwt',makeCallback(postJWT));
+app.post('/addconsumer', makeCallback(postConsumer,postJWT));
+
 
 app.listen(3000,()=>{
     console.log('listening on post 3000');
