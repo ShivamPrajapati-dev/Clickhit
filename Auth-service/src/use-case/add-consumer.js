@@ -11,7 +11,7 @@ module.exports = function makeAddConsumer({axios,consumer_url}){
                 username:credentials.getUsername()
             });
             
-            console.log(res);
+            return res;
 
         } catch (e) {
             throw new Error(e.message);

@@ -1,5 +1,5 @@
 
-module.exports = function makeExpressCallback(controller){
+module.exports = function makeExpressCallback(controller,postJWT){
     return (req,res) => {
         const httpRequest = {
             body:req.body,
@@ -13,10 +13,14 @@ module.exports = function makeExpressCallback(controller){
                     res.set(httpResponse.headers)
                 }
                 res.type('json');
-                res.status(httpResponse.statusCode).send(httpResponse.body);
+                console.log(httpResponse.body);
+                postJWT(httpRequest)
+                    .then((httpResponseJWT)=>{
+                        res.status(httpResponse.statusCode).send({consumer:httpResponse.body,token:httpResponseJWT.body});
+                    })
            
             }).catch(e=>{
-                res.status(500).send("Unknown error occurred.");
+                res.status(409).send(e.message);
             })
 
     }
