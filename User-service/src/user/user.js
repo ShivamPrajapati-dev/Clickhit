@@ -1,6 +1,7 @@
 module.exports = function buildMakeUser(){
     return function makeUser({
         username,
+        password,
         name, 
         bio, 
         dob, 
@@ -8,16 +9,17 @@ module.exports = function buildMakeUser(){
         img_url,
         img_name
     }){
+
         if(!username){
             throw new Error('must have a username');
         }
-
-        if(!name){
-            throw new Error('must have a name');
+        if(!password){
+            throw new Error('must have a password');
         }
 
         return Object.freeze({
             getUsername: () => username,
+            getPassword: () => password,
             getName: () => name,
             getBio: () => bio,
             getDOB: () => dob,
