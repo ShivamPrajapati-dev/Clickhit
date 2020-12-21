@@ -13,9 +13,10 @@ module.exports = function makeExpressCallback(controller,postJWT){
                     res.set(httpResponse.headers)
                 }
                 res.type('json');
-                console.log(httpResponse.body);
+
                 postJWT(httpRequest)
                     .then((httpResponseJWT)=>{
+                        // send event to user service
                         res.status(httpResponse.statusCode).send({consumer:httpResponse.body,token:httpResponseJWT.body});
                     })
            
