@@ -3,6 +3,8 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
+const RSMQWorker = require('rsmq-worker');
+const worker = new RSMQWorker(process.env.QUEUE_NAME);
 
 const app = express();
 app.use(bodyParser.json());
@@ -14,8 +16,10 @@ const{
 } = require('./controller');
 
 const makeExpressCallback = require('./express-callback');
+const makeEvent = require('./events');
 
-app.post('/adduser',makeExpressCallback(postUser));
+worker.on("message",makeEvent(makeExpressCallback,postUser));
+//app.post('/adduser',makeExpressCallback(postUser));
 app.patch('/updateuser', makeExpressCallback(patchUser));
 
 mongoose
@@ -24,9 +28,11 @@ mongoose
         useUnifiedTopology: true,
       })
         .then(result=>{
-            app.listen(3000,()=>{
-                console.log('listening on port 3000');
+            app.listen(3001,()=>{
+                console.log('User service listening on port 3001');
+                worker.start();
             })
+            
         })
           .catch(e=>{
               console.log(e.message);
