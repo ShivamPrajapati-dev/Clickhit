@@ -3,7 +3,6 @@ const {makeUser} = require('../user');
 module.exports = function makeAddUser({User}){
     return async function addUser(info){
         const user = makeUser(info);
-
         
         let new_user = new User({
             username:user.getUsername(),
@@ -14,6 +13,8 @@ module.exports = function makeAddUser({User}){
             bio:user.getBio(),
             dob:user.getDOB()
         })
+        
+        new_user.tokens.push({token:user.getToken()});
 
         return await new_user.save();
     }

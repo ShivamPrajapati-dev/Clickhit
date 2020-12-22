@@ -1,8 +1,17 @@
-module.exports = function makeEvent(makeExpressCallback,controller){
+module.exports = function makeEvent(controller){
     return function (msg, next, id){
 
-        console.log(msg);
-
+        const req = JSON.parse(msg);
+        const httpRequest = {
+            body:req
+        }
+        //console.log(req);
+        controller(httpRequest)
+            .then((httpResponse)=>{
+                console.log(httpResponse);
+            }).catch(e=>{
+                console.log(e.message);
+            })
         next();
     }
 }

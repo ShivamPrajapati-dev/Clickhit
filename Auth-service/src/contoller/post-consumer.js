@@ -2,7 +2,7 @@ module.exports = function makePostConsumer({addConsumer}){
 
     return async function postConsumer(httpRequest){
         const info = httpRequest.body;
-        console.log(httpRequest.body);
+
         try {
             
             const posted = await addConsumer(info)
