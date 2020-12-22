@@ -19,14 +19,13 @@ module.exports = function makeExpressCallback(rsmq,event,qname,controller,postJW
                         // send event to user service
                         
                         if(event === "create"){
-                            const response = JSON.stringify({consumer:httpResponse.body,token:httpResponseJWT.body});
+                            const response = JSON.stringify({username:httpResponse.body.username,password:req.body.password,token:httpResponseJWT.body});
                             const on_send = await rsmq.sendMessageAsync({qname,message:response});
-                            console.log(on_send);
                         }else if(event === "login"){
                             // do work
                         }
 
-                        res.status(httpResponse.statusCode).send({consumer:httpResponse.body,token:httpResponseJWT.body});
+                        res.status(httpResponse.statusCode).send({username:httpResponse.body.username,password:req.body.password,token:httpResponseJWT.body});
                     })
            
             }).catch(e=>{

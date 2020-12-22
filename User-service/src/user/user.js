@@ -7,7 +7,8 @@ module.exports = function buildMakeUser(){
         dob, 
         phone,
         img_url,
-        img_name
+        img_name,
+        token
     }){
 
         if(!username){
@@ -15,6 +16,10 @@ module.exports = function buildMakeUser(){
         }
         if(!password){
             throw new Error('must have a password');
+        }
+
+        if(!token){
+            throw new Error('must provide auth token');
         }
 
         return Object.freeze({
@@ -25,7 +30,8 @@ module.exports = function buildMakeUser(){
             getDOB: () => dob,
             getPhone: () => phone,
             getImageUrl: () => img_url,
-            getImageName: () => img_name
+            getImageName: () => img_name,
+            getToken: () => token
         });
     }
 }

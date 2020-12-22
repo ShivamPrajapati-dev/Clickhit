@@ -18,8 +18,8 @@ const{
 const makeExpressCallback = require('./express-callback');
 const makeEvent = require('./events');
 
-worker.on("message",makeEvent(makeExpressCallback,postUser));
-//app.post('/adduser',makeExpressCallback(postUser));
+worker.on("message",makeEvent(postUser));
+app.post('/adduser',makeExpressCallback(postUser));
 app.patch('/updateuser', makeExpressCallback(patchUser));
 
 mongoose
