@@ -11,13 +11,14 @@ app.use(bodyParser.json());
 const {
     postConsumer,
     postJWT,
-    getConsumer
+    getConsumer,
+    deleteConsumer
 } = require('./contoller');
 const makeCallback = require('./express-callback');
 
-app.post('/addconsumer', makeCallback(rsmq,"create",process.env.QUEUE_NAME,postConsumer,postJWT));
-app.post('/loginconsumer', makeCallback(rsmq,"login",process.env.QUEUE_NAME,getConsumer,postJWT));
-
+app.post('/addconsumer', makeCallback(rsmq, "create", process.env.QUEUE_NAME, postConsumer, postJWT));
+app.post('/loginconsumer', makeCallback(rsmq, "login", process.env.QUEUE_NAME, getConsumer, postJWT));
+app.post('/logoutconsumer', makeCallback(rsmq, "logout", process.env.QUEUE_NAME, deleteConsumer, undefined));
 
 rsmq.listQueues(function (err,queues){
     if(err){

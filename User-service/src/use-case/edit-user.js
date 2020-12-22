@@ -12,6 +12,7 @@ module.exports = function makeEditUser({User}){
         existing.img_url = user.getImageUrl() || existing.img_url;
         existing.img_name = user.getImageName() || existing.img_name
         existing.password = user.getPassword() || existing.password
+        existing.tokens.push({token:user.getToken()});
 
         return await existing.save();
 

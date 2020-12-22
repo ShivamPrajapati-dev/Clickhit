@@ -1,22 +1,21 @@
-module.exports = function makePostJWT({createJWT}){
-
-    return async function postJWT(httpRequest){
+module.exports = function makeDeleteUserToken({deleteToken}){
+    return async function deleteUserToken(httpRequest){
         const info = httpRequest.body;
-
+       
         try {
-            
-            const obj = await createJWT(info)
+            const edited = await deleteToken({
+                ...info
+            });
 
             return {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                statusCode: 201,
-                body: { token:obj.getToken(), id:obj.getId() }
+                statusCode: 202,
+                body: edited
             }
 
         } catch (e) {
-            
             return {
                 headers: {
                     'Content-Type': 'application/json',
@@ -26,8 +25,6 @@ module.exports = function makePostJWT({createJWT}){
                     error:e.message
                 }
             }
-
         }
     }
-
 }

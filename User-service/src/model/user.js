@@ -22,7 +22,8 @@ const schema = mongoose.Schema({
     img_name:{ type:String },
 
     tokens:[{
-        token:{ type:String,required:true }
+        token:{ type:String,required:true },
+        id:{ type:String, required:true }
     }]
 });
 
