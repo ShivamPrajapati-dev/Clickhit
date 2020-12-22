@@ -14,7 +14,7 @@ module.exports = function makeAddUser({User}){
             dob:user.getDOB()
         })
         
-        new_user.tokens.push({token:user.getToken()});
+        new_user.tokens.push({token:user.getToken(),id:user.getId()});
 
         return await new_user.save();
     }

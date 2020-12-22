@@ -8,12 +8,14 @@ module.exports = function buildMakeUser(){
         phone,
         img_url,
         img_name,
-        token
+        token,
+        id
     }){
 
         if(!username){
             throw new Error('must have a username');
         }
+
         if(!password){
             throw new Error('must have a password');
         }
@@ -31,7 +33,8 @@ module.exports = function buildMakeUser(){
             getPhone: () => phone,
             getImageUrl: () => img_url,
             getImageName: () => img_name,
-            getToken: () => token
+            getToken: () => token,
+            getId: () => id
         });
     }
 }

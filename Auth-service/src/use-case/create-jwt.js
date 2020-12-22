@@ -6,7 +6,7 @@ module.exports = function makeCreteJWT({axios,jwt,jwt_url}){
         const credentials = makeCredentials(info);
         
         try {
-            console.log(credentials.getUsername(),jwt_url);
+
             const res = await axios.post(`${jwt_url}/${credentials.getUsername()}/jwt`,{},{
                 headers:{"Content-Type":"application/json"}
             });
@@ -18,7 +18,8 @@ module.exports = function makeCreteJWT({axios,jwt,jwt_url}){
             },res.data.secret);
             console.log(token);
             return Object.freeze({
-                getToken:() => token
+                getToken:() => token,
+                getId: () => res.data.id
             });
 
         } catch (e) {

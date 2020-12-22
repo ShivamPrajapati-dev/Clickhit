@@ -12,13 +12,14 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 const{
     postUser,
-    patchUser
+    patchUser,
+    deleteUserToken
 } = require('./controller');
 
 const makeExpressCallback = require('./express-callback');
 const makeEvent = require('./events');
 
-worker.on("message",makeEvent(postUser));
+worker.on("message",makeEvent(postUser,patchUser,deleteUserToken));
 app.post('/adduser',makeExpressCallback(postUser));
 app.patch('/updateuser', makeExpressCallback(patchUser));
 
