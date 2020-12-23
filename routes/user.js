@@ -99,7 +99,7 @@ router.post('/adduser', upload.single("pic"), async (req,res)=>{
          await user.save();
          console.log(user);
          const token = await user.generateAuthToken();
-          console.log(token);
+         console.log(token);
          return res.send({success:true,data:user,token})
 
     } catch (e) {

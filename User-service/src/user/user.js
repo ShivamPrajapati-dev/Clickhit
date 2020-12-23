@@ -20,10 +20,7 @@ module.exports = function buildMakeUser(){
             throw new Error('must have a password');
         }
 
-        if(!token){
-            throw new Error('must provide auth token');
-        }
-
+       
         return Object.freeze({
             getUsername: () => username,
             getPassword: () => password,
