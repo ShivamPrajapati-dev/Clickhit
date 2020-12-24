@@ -1,13 +1,11 @@
-module.exports = function makeReadComment({getComment}){
-    return async function readComment(httpRequest){
+module.exports = function makeGetFood({getPost}){
+    return async function getFood(httpRequest){
         
-        const userId = httpRequest.body.userId;
-        const activityId = httpRequest.body.activityId;
-
+        const username = httpRequest.body.username;
         
         try {
           
-            const readed = await getComment({userId,activityId});
+            const readed = await getPost({username});
           
             return {
                 headers: {

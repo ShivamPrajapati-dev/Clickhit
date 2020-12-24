@@ -17,7 +17,7 @@ module.exports = function makeGetLikes({Likes}){
             return {count_likes, my_like};
 
         } catch (e) {
-            
+            throw new Error(e);
         }
     }
 }

@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema({
 
-    userId:{type:String},
-    foodName:{type:String},
+    username:{type:String},
+    food_name:{type:String},
     category:{type:String},
     ingredients:[String],
-    imageUrl:{type:String},
-    imageName:{type:String}
+    img_name:{type:String},
+    img_url:{type:String}
 
 },{
     timestamps:true
