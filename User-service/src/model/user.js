@@ -25,6 +25,8 @@ const schema = mongoose.Schema({
         token:{ type:String,required:true },
         id:{ type:String, required:true }
     }]
+},{
+    timestamps:true
 });
 
 schema.methods.toJSON = function(){

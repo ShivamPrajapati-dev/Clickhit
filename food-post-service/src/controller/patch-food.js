@@ -1,24 +1,18 @@
-module.exports = function makeReadComment({getComment}){
-    return async function readComment(httpRequest){
-        
-        const userId = httpRequest.body.userId;
-        const activityId = httpRequest.body.activityId;
-
+module.exports = function makePatchFood({editPost}){
+    return async function patchFood(httpRequest){
+        const  info  = httpRequest.body
         
         try {
-          
-            const readed = await getComment({userId,activityId});
-          
+            const edited = await editPost({...info});
+
             return {
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 statusCode: 200,
-                body: readed
-            }    
-        
+                body: edited
+            }
         } catch (e) {
-            
             return {
                 headers: {
                     'Content-Type': 'application/json',
@@ -29,5 +23,6 @@ module.exports = function makeReadComment({getComment}){
                 }
             }
         }
+
     }
 }

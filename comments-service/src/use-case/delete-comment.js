@@ -1,4 +1,4 @@
-module.exports = function makeDeleteCommet({Comment}){
+module.exports = function makeDeleteComment({Comment}){
     return async function deleteComment({id}){
         try {
             
