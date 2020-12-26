@@ -1,27 +1,30 @@
-module.exports = function makePostFood({addFood}){
-    return async function postFood(httpRequest){
-        const  info  = httpRequest.body
+module.exports = function makePostFollowee({addFollowee}){
+   
+    return async function postFollowee(httpRequest){
         
-        try {
-            const posted = await addFood({...info});
+        const info = httpRequest.body;
 
+        try {
+            const posted = await addFollowee(info);
+        
             return {
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 statusCode: 201,
                 body: posted
-            }
+            }            
+        
         } catch (e) {
+        
             return {
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 statusCode: 400,
-                body:{
-                    error:e.message
-                }
+                body: e.message
             }
+        
         }
 
     }
