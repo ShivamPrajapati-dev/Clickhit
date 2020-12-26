@@ -1,5 +1,6 @@
 const Food = require('../model/post');
-const rsmq = require('rsmq');
+const RedisSMQ = require("rsmq");
+const rsmq = new RedisSMQ( {host: "127.0.0.1", port: 6379, ns: "rsmq"} );
 const redis = require('redis');
 const cache = redis.createClient();
 

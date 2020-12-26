@@ -26,7 +26,7 @@ mongoose
         useUnifiedTopology: true,
       })
         .then((result)=>{
-            app.listen(3000,()=>{
+            app.listen(3004,()=>{
                 console.log('Server is up on port 3000');
             });
         }).catch(e=>{
