@@ -1,31 +1,28 @@
-module.exports = function makeGetFollower({readFollower}){
-   
-    return async function getFollower(httpRequest){
-        
+module.exports = function makeGetUserfeed({readUserfeed}){
+    return async function getUserfeed(httpRequest){
         const info = httpRequest.body.username;
-        console.log(info);
+       
         try {
-            const read = await readFollower(info);
-        
+            const read = await readUserfeed(info);
+
             return {
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 statusCode: 200,
                 body: read
-            }            
-        
+            }
+
         } catch (e) {
-        
             return {
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 statusCode: 400,
-                body: e.message
+                body:{
+                    error:e.message
+                }
             }
-        
         }
-
     }
 }

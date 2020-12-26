@@ -7,7 +7,7 @@ module.exports = function makeReadFollower({Follow}){
             throw new Error('Must provide username')      // id = username
         }
         
-        const data = await Follow.find({followee_id:id});
+        const data = await Follow.find({follower_id:id});
         
         return data;
     }

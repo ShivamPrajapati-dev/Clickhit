@@ -17,8 +17,8 @@ const {
 const makeExpressCallback = require('./express-callback');
 
 app.post('/follow/postfollowee',makeExpressCallback(postFollowee));
-app.get('/follow/getfollowee', makeExpressCallback(getFollowee));
-app.get('/follow/getfollower', makeExpressCallback(getFollower));
+app.post('/follow/getfollowee', makeExpressCallback(getFollowee));
+app.post('/follow/getfollower', makeExpressCallback(getFollower));
 app.delete('/follow/deletefollowee', makeExpressCallback(deleteFollowee));
 
 mongoose
@@ -26,8 +26,8 @@ mongoose
         useNewUrlParser:true,
         useUnifiedTopology:true
     }).then((result)=>{
-        app.listen(3000,()=>{
-            console.log('Follow service listening on port 3000');
+        app.listen(3002,()=>{
+            console.log('Follow service listening on port 3002');
         })
     }).catch(e=>{
         console.log(e.message);

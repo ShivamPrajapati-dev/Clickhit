@@ -51,7 +51,7 @@ mongoose
         useUnifiedTopology: true,
       })
         .then(result=>{
-            app.listen(3001,()=>{
+            app.listen(3007,()=>{
                 console.log('User service listening on port 3001');
                 worker.start();
             })
