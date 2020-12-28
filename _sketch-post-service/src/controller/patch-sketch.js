@@ -1,22 +1,18 @@
-module.exports = function makeGetQuote({readQuote}){
-    return async function getQuote(httpRequest){
-        
-        const username = httpRequest.body.username;
-        
+module.exports = function makePatchSketch({editSketch}){
+    return async function patchSketch(httpRequest){
+        const  info  = httpRequest.body
+        const id = httpRequest.id;
         try {
-          
-            const readed = await readQuote(username);
-          
+            const edited = await editSketch(info,id);
+
             return {
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 statusCode: 200,
-                body: readed
-            }    
-        
+                body: edited
+            }
         } catch (e) {
-            
             return {
                 headers: {
                     'Content-Type': 'application/json',
@@ -27,5 +23,6 @@ module.exports = function makeGetQuote({readQuote}){
                 }
             }
         }
+
     }
 }

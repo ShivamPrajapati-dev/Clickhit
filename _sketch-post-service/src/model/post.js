@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema({
     
-    imageName:{type:String},
-    imageUrl:{type:String},
+    img_name:{type:String},
+    img_url:{type:String},
     description:{type:String},
-    timeTaken:{type:String},
-    userId:{type:String}
+    time_taken:{type:String},
+    username:{type:String},
+    type:{type:String,default:"sketch"}
     //add hastags
 
 },{

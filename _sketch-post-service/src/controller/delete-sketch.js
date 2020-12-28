@@ -1,22 +1,17 @@
-module.exports = function makeGetQuote({readQuote}){
-    return async function getQuote(httpRequest){
-        
-        const username = httpRequest.body.username;
-        
-        try {
-          
-            const readed = await readQuote(username);
-          
+module.exports = function makeDeleteSketch({removeSketch}){
+    return async function deleteSketch(httpRequest){
+        const id = httpRequest.id;
+
+        try{
+            const deleted = await removeSketch(id);
             return {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                statusCode: 200,
-                body: readed
-            }    
-        
-        } catch (e) {
-            
+                statusCode: 201,
+                body: deleted
+            }
+        } catch(e){
             return {
                 headers: {
                     'Content-Type': 'application/json',
