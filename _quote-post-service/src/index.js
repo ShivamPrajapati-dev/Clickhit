@@ -1,30 +1,28 @@
 require('dotenv').config();
 
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
+const bodyParser = require('body-parser');
 const RedisSMQ = require("rsmq");
 const rsmq = new RedisSMQ( {host: "127.0.0.1", port: 6379, ns: "rsmq"} );
 
-const app = express()
+const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
 const {
-    postFood,
-    patchFood,
-    deleteFood,
-    getFood
-} = require('./controller');
+    postQuote,
+    getQuote,
+    deleteQuote,
+    patchQuote
+} = require('./controller')
 
 const makeExpressCallback = require('./express-callback');
 
-//TODO:Add s3 middleware
-app.post('/food/post', makeExpressCallback(postFood));   // update userfeed of followers after new posts,update and delete post
-app.patch('/food/update', makeExpressCallback(patchFood));
-app.delete('/food/delete',makeExpressCallback(deleteFood));
-app.post('/food/get', makeExpressCallback(getFood));
+app.post('/quote/post',makeExpressCallback(postQuote));
+app.patch('/quote/update', makeExpressCallback(patchQuote));
+app.delete('/quote/delete',makeExpressCallback(deleteQuote));
+app.post('/quote/get',makeExpressCallback(getQuote));
 
 mongoose
     .connect(process.env.MONGO_URL, {
@@ -39,8 +37,8 @@ mongoose
                     return;
                 }
                 if(queues.includes(process.env.QUEUE_NAME)){
-                    app.listen(3003,()=>{
-                        console.log('Food post service is up on port 3003');
+                    app.listen(3004,()=>{
+                        console.log('Food post service is up on port 3004');
                     });
                 }else{
                     rsmq.createQueue({qname:process.env.QUEUE_NAME},function (err,resp){
@@ -48,8 +46,8 @@ mongoose
                             console.log(err);
                             return;
                         }
-                        app.listen(3003,()=>{
-                            console.log('Food post service is up on port 3003');
+                        app.listen(3004,()=>{
+                            console.log('Food post service is up on port 3004');
                         }); 
                     })
                 }
