@@ -1,11 +1,11 @@
-module.exports = function makeGetQuote({readQuote}){
-    return async function getQuote(httpRequest){
+module.exports = function makeGetSketch({readSketch}){
+    return async function getSketch(httpRequest){
         
         const username = httpRequest.body.username;
         
         try {
           
-            const readed = await readQuote(username);
+            const readed = await readSketch({username});
           
             return {
                 headers: {
