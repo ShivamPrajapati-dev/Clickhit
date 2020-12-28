@@ -6,7 +6,8 @@ const schema = mongoose.Schema({
     category:{type:String},
     ingredients:[String],
     img_name:{type:String},
-    img_url:{type:String}
+    img_url:{type:String},
+    type:{type:String, default:"food"}
 
 },{
     timestamps:true

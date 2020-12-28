@@ -1,4 +1,3 @@
-const { lpop } = require("../../../redis-client/client");
 
 module.exports = function makeEvent(cache, promisify,axios,url){
     return async function  (msg, next, id){
