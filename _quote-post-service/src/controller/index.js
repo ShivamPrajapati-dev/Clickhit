@@ -1,4 +1,4 @@
-const { addQuote, editQuote, readQuote, removeQuote} = require('../use-case');
+const { addQuote, editQuote, readQuote, removeQuote, fileUpload} = require('../use-case');
 
 const makeGetQuote = require('./get-quote');
 const makePostQuote = require('./post-quote');
@@ -10,4 +10,4 @@ const postQuote = makePostQuote({addQuote});
 const getQuote = makeGetQuote({readQuote});
 const patchQuote = makePatchQuote({editQuote});
 
-module.exports = {postQuote, getQuote, patchQuote, deleteQuote};
+module.exports = {postQuote, getQuote, patchQuote, deleteQuote, fileUpload};

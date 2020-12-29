@@ -9,10 +9,12 @@ const makeAddSketch = require('./add-sketch');
 const makeEditSketch = require('./edit-sketch');
 const makeRemoveSketch = require('./remove-sketch');
 const makeGetSketch = require('./get-sketch');
+const makeFileUpload = require('./file-upload');
 
 const addSketch = makeAddSketch({Sketch, rsmq, cache});
 const editSketch = makeEditSketch({Sketch, cache});
 const removeSketch = makeRemoveSketch({Sketch, cache,promisify});
 const readSketch = makeGetSketch({Sketch});
+const fileUpload = makeFileUpload();
 
-module.exports = {addSketch, editSketch, removeSketch, readSketch};
+module.exports = {addSketch, editSketch, removeSketch, readSketch, fileUpload};

@@ -9,10 +9,12 @@ const makeAddFood = require('./add-food');
 const makeEditPost = require('./edit-post');
 const makeDeletePost = require('./delete-post');
 const makeGetPost = require('./get-post');
+const makeFileUpload = require('./file-upload');
 
 const addFood = makeAddFood({Food, rsmq, cache});
 const editPost = makeEditPost({Food, cache});
 const deletePost = makeDeletePost({Food, cache, promisify});
 const getPost = makeGetPost({Food});
+const fileUpload = makeFileUpload();
 
-module.exports = {addFood, editPost, deletePost, getPost};
+module.exports = {addFood, editPost, deletePost, getPost, fileUpload};
