@@ -1,4 +1,4 @@
-const {addFood,editPost,deletePost, getPost} = require('../use-case');
+const {addFood,editPost,deletePost, getPost, fileUpload} = require('../use-case');
 
 const makePostFood = require('./post-food');
 const makePatchFood = require('./patch-food');
@@ -10,4 +10,4 @@ const patchFood = makePatchFood({editPost});
 const deleteFood = makeDeleteFood({deletePost});
 const getFood = makeGetFood({getPost})
 
-module.exports = {postFood, patchFood, deleteFood, getFood};
+module.exports = {postFood, patchFood, deleteFood, getFood, fileUpload};

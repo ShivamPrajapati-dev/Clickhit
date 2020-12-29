@@ -52,7 +52,7 @@ mongoose
       })
         .then(result=>{
             app.listen(3007,()=>{
-                console.log('User service listening on port 3001');
+                console.log('User service listening on port 3007');
                 worker.start();
             })
             

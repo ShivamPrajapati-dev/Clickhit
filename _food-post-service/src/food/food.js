@@ -14,10 +14,10 @@ module.exports = function buildMakeFood(){
             throw new Error('Must provide food name');
         }
         if(!category){
-            throw new Error('Must provide cateory');
+            throw new Error('Must provide category');
         }
         if(!ingredients){
-            throw new Error('Must provide food category');
+            throw new Error('Must provide food ingredients');
         }
         if(!img_url){
             throw new Error('Must provide image url');

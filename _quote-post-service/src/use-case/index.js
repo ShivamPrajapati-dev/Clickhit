@@ -9,10 +9,12 @@ const makeAddQuote = require('./add-quote');
 const makeEditQuote = require('./edit-quote');
 const makeRemoveQuote = require('./remove-quote');
 const makeGetQuote = require('./get-quote');
+const makeFileUpload = require('./file-upload');
 
 const addQuote = makeAddQuote({Quote, rsmq, cache});
 const editQuote = makeEditQuote({Quote,cache});
 const removeQuote = makeRemoveQuote({Quote,cache, promisify});
 const readQuote = makeGetQuote({Quote});
+const fileUpload = makeFileUpload();
 
-module.exports = { addQuote, editQuote, removeQuote, readQuote };
+module.exports = { addQuote, editQuote, removeQuote, readQuote, fileUpload };
