@@ -6,8 +6,8 @@ const schema = mongoose.Schema({
     description:{type:String},
     time_taken:{type:String},
     username:{type:String},
-    type:{type:String,default:"sketch"}
-    //add hastags
+    type:{type:String,default:"sketch"},
+    hashtags:[String]
 
 },{
     timestamps:true

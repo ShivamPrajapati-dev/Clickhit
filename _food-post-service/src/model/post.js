@@ -7,8 +7,8 @@ const schema = mongoose.Schema({
     ingredients:[String],
     img_name:{type:String},
     img_url:{type:String},
-    type:{type:String, default:"food"}
-
+    type:{type:String, default:"food"},
+    hashtags:[String]
 },{
     timestamps:true
 });

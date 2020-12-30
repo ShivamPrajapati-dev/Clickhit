@@ -10,7 +10,8 @@ module.exports = function makeAddSketch({Sketch,rsmq,cache}){
             description:sketch.getDescription(),
             time_taken:sketch.getTimeTaken(),
             img_name:sketch.getImageName(),
-            img_url:sketch.getImageUrl()
+            img_url:sketch.getImageUrl(),
+            hashtags:sketch.getHashtags()
         });
       
         const saved = await new_sketch.save();

@@ -11,7 +11,8 @@ module.exports = function makeAddFood({Food,rsmq,cache}){
             category:food.getFoodCategory(),
             ingredients:food.getIngredients(),
             img_name:food.getImageName(),
-            img_url:food.getImageUrl()
+            img_url:food.getImageUrl(),
+            hashtags:food.getHashtags()
         });
       
         const saved = await new_food.save();

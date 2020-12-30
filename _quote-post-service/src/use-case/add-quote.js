@@ -7,7 +7,8 @@ module.exports = function makeAddQuote({Quote, rsmq, cache}){
         const new_quote = new Quote({
             img_url:quote.getImageUrl(),
             img_name:quote.getImageName(),
-            username:quote.getUsername()
+            username:quote.getUsername(),
+            hashtags:quote.getHashtags()
         });
         const saved = await new_quote.save();
         const key = String(saved._id);

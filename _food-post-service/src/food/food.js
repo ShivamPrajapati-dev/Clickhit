@@ -5,7 +5,8 @@ module.exports = function buildMakeFood(){
         category,
         ingredients,
         img_url,
-        img_name
+        img_name,
+        hashtags
     }){
         if(!username){
             throw new Error('Must provide username');
@@ -32,7 +33,8 @@ module.exports = function buildMakeFood(){
             getFoodCategory: () => category,
             getIngredients: () => ingredients,
             getImageUrl: () => img_url,
-            getImageName: () => img_name
+            getImageName: () => img_name,
+            getHashtags: () => hashtags
         });
         
     }
