@@ -6,7 +6,8 @@ module.exports = function buildMakeFoodEdit(){
         ingredients,
         img_url,
         img_name,
-        id
+        id,
+        hashtags
     }){
         if(!username){
             throw new Error('Must provide username');
@@ -23,7 +24,8 @@ module.exports = function buildMakeFoodEdit(){
             getIngredients: () => ingredients,
             getImageUrl: () => img_url,
             getImageName: () => img_name,
-            getId: () => id
+            getId: () => id,
+            getHashtags: () => hashtags
         });
         
     }

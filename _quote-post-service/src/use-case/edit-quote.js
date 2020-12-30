@@ -12,6 +12,7 @@ module.exports = function makeEditQuote({Quote, cache}){
         const existing = await Quote.findOne({_id:id,username:quote.getUsername()});
         existing.img_name = quote.getImageName() || existing.img_name;
         existing.img_url = quote.getImageUrl() || existing.img_url;
+        existing.hashtags = quote.getHashtags() || existing.hashtags
         
         const key = String(existing._id);
 

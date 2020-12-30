@@ -11,6 +11,7 @@ module.exports = function makeEditPost({Food,cache}){
         existing.ingredients = food.getIngredients() || existing.ingredients;
         existing.img_name = food.getImageName() || existing.img_name
         existing.img_url = food.getImageUrl() || existing.img_url
+        existing.hastags = food.getHashtags() || existing.hastags
 
         const key = String(existing._id);
 

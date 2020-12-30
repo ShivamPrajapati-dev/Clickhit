@@ -14,7 +14,8 @@ module.exports = function makeEditSketch({Sketch,cache}){
         existing.img_name = sketch.getImageName() || existing.img_name;
         existing.img_url = sketch.getImageUrl() || existing.img_url;
         existing.time_taken = sketch.getTimeTaken() || existing.time_taken;
-
+        existing.hashtags = sketch.getHashtags() || existing.hashtags
+        
         const key = String(existing._id);
 
         cache.set(key, JSON.stringify(existing));        // update post in redis

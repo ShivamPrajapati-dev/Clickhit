@@ -2,7 +2,8 @@ module.exports = function buildMakeQuote(){
     return function makeQuote({
         img_url,
         username,
-        img_name
+        img_name,
+        hashtags
     }){
         if(!username){
             throw new Error('Must provide the username');
@@ -16,7 +17,8 @@ module.exports = function buildMakeQuote(){
         return Object.freeze({
             getUsername: () => username,
             getImageName: () =>img_name,
-            getImageUrl: () => img_url 
+            getImageUrl: () => img_url,
+            getHashtags: () => hashtags
         });
     }
 }

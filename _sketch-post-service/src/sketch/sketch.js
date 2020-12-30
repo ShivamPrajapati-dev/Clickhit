@@ -4,7 +4,8 @@ module.exports = function buildMakeSketch(){
         img_url,
         username,
         time_taken,
-        description
+        description,
+        hashtags
     }){
         if(!username){
             throw new Error('Must provide the username');
@@ -21,7 +22,8 @@ module.exports = function buildMakeSketch(){
             getImageName: () =>img_name,
             getImageUrl: () => img_url,
             getTimeTaken: () => time_taken,
-            getDescription: () => description
+            getDescription: () => description,
+            getHashtags: () => hashtags
         });
     }
 }

@@ -3,8 +3,8 @@ const schema = mongoose.Schema({
     img_url:{type:String},
     username:{type:String},
     img_name:{type:String},
-    type:{type:String,default:"quote"}
-    //add hastags
+    type:{type:String,default:"quote"},
+    hashtags:[String]
 },{
     timestamps:true
 });
