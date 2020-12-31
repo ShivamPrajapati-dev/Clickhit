@@ -1,6 +1,6 @@
 const {makeFoodEdit} = require('../food');
 
-module.exports = function makeEditPost({Food,cache}){
+module.exports = function makeEditPost({Food,cache, rsmq}){
     return async function editPost(info){
         const food = makeFoodEdit(info);
 
@@ -16,6 +16,12 @@ module.exports = function makeEditPost({Food,cache}){
         const key = String(existing._id);
 
         cache.set(key, JSON.stringify(existing));        // update post in redis
+
+        await rsmq.sendMessageAsync({qname:process.env.ES_QUEUE_NAME, message:JSON.stringify({   // send event to search service
+            index:"posts",
+            event_type:"update",
+            body:existing
+        })})
 
         return await existing.save();
 

@@ -12,8 +12,8 @@ const makeGetQuote = require('./get-quote');
 const makeFileUpload = require('./file-upload');
 
 const addQuote = makeAddQuote({Quote, rsmq, cache});
-const editQuote = makeEditQuote({Quote,cache});
-const removeQuote = makeRemoveQuote({Quote,cache, promisify});
+const editQuote = makeEditQuote({Quote,cache, rsmq});
+const removeQuote = makeRemoveQuote({Quote,cache, promisify, rsmq});
 const readQuote = makeGetQuote({Quote});
 const fileUpload = makeFileUpload();
 

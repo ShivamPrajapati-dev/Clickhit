@@ -3,6 +3,7 @@ module.exports = function makeAddData({client}){
         
         const data = await client.index({
             index:info.index,
+            id:info.id,                 // use mongodb id
             body:info.body
         });
 

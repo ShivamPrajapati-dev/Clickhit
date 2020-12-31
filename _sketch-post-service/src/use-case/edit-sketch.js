@@ -1,6 +1,6 @@
 const {makeSketch} = require('../sketch');
 
-module.exports = function makeEditSketch({Sketch,cache}){
+module.exports = function makeEditSketch({Sketch,cache, rsmq}){
     return async function editSketch(info,id){
 
         if(!id){
@@ -19,6 +19,12 @@ module.exports = function makeEditSketch({Sketch,cache}){
         const key = String(existing._id);
 
         cache.set(key, JSON.stringify(existing));        // update post in redis
+    
+        await rsmq.sendMessageAsync({qname:process.env.ES_QUEUE_NAME, message:JSON.stringify({   // send event to search service
+            index:"posts",
+            event_type:"update",
+            body:existing
+        })})
 
         return await existing.save();
 

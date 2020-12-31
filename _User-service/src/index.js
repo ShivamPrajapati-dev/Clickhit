@@ -11,7 +11,8 @@ const {v4:uuidv4} = require('uuid');
 const path = require('path');
 const redis = require('redis');
 const cache = redis.createClient();
-
+const RedisSMQ = require("rsmq");
+const rsmq = new RedisSMQ( {host: "127.0.0.1", port: 6379, ns: "rsmq"} );
 const worker = new RSMQWorker(process.env.QUEUE_NAME);
 
 const app = express();
@@ -51,10 +52,33 @@ mongoose
         useUnifiedTopology: true,
       })
         .then(result=>{
-            app.listen(3007,()=>{
-                console.log('User service listening on port 3007');
-                worker.start();
+
+            rsmq.listQueues(function (err,queues){
+                if(err){
+                    console.log(err);
+                    return;
+                }
+                if(queues.includes(process.env.ES_QUEUE_NAME)){
+                    app.listen(3007,()=>{
+                        console.log('User service listening on port 3007');
+                        worker.start();
+                    })
+
+                }else{
+                    rsmq.createQueue({qname:process.env.ES_QUEUE_NAME},function (err,resp){
+                        if(err){
+                            console.log(err);
+                            return;
+                        }
+                        app.listen(3007,()=>{
+                            console.log('User service listening on port 3007');
+                            worker.start();
+                        }) 
+
+                    })
+                }
             })
+            
             
         })
           .catch(e=>{

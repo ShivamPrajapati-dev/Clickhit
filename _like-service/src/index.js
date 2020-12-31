@@ -27,7 +27,7 @@ mongoose
       })
         .then((result)=>{
             app.listen(3004,()=>{
-                console.log('Server is up on port 3000');
+                console.log('Server is up on port 3004');
             });
         }).catch(e=>{
             console.log(e);

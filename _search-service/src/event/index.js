@@ -1,13 +1,12 @@
-module.exports = function makeEvent(postData, patchData){
+module.exports = function makeEvent(postData, patchData, deleteData){
     return function (msg, next, id){
         
         const req = JSON.parse(msg);
 
         const httpRequest = {
-            index:req.params.index,
+            index:req.index,
             body:req.body,
-            query:req.params.query,
-            id:req.params.id
+            id:req.body._id
         }
         
         if(req.event_type == "create"){
@@ -24,6 +23,13 @@ module.exports = function makeEvent(postData, patchData){
                 console.log(httpResponse);
             }).catch(e=>console.log(e.message))
         
+        }else if(req.event_type == "delete"){
+
+            deleteData(httpRequest)
+            .then((httpResponse)=>{
+                console.log(httpResponse);
+            }).catch(e=>console.log(e.message))
+
         }
         next();
     }

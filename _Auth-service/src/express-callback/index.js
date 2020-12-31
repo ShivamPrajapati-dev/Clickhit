@@ -22,7 +22,7 @@ module.exports = function makeExpressCallback(rsmq,event,qname,controller,postJW
                         token:req.body.token,
                         event_type:event
                     });
-                    await rsmq.sendMessageAsync({qname,message:response});  //send event
+                    await rsmq.sendMessageAsync({qname,message:response});  //send event to userservice
                 
                     res.status(httpResponse.statusCode).send({success:true});
                 

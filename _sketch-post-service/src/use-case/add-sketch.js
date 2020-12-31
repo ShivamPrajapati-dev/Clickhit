@@ -24,6 +24,12 @@ module.exports = function makeAddSketch({Sketch,rsmq,cache}){
             username:sketch.getUsername()       // username to find follower of this user
         })});
 
+        await rsmq.sendMessageAsync({qname:process.env.ES_QUEUE_NAME, message:JSON.stringify({   // send event to search service
+            index:"posts",
+            event_type:"create",
+            body:saved
+        })})
+
         return saved;
          
     }
