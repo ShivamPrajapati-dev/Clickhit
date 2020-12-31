@@ -11,14 +11,15 @@ app.use(bodyParser.urlencoded({extended:true}));
 const {
     postData,
     postSAYT,
-    patchData
+    patchData,
+    deleteData
 } = require('./controller');
 
 const makeExpressCallback = require('./express-callback')
 const makeEvent = require('./event');
 
 //app.post('/search/data/:index', makeExpressCallback(postData));
-worker.on("message",makeEvent(postData,patchData));
+worker.on("message",makeEvent(postData,patchData,deleteData));
 app.post('/search/sayt/:index/:query', makeExpressCallback(postSAYT));   // body:{"field":"username"}
 //app.patch('/search/update/:index/:id', makeExpressCallback(patchData));
 

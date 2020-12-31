@@ -1,4 +1,4 @@
-module.exports = function makeRemoveSketch({Sketch, cache, promisify}){
+module.exports = function makeRemoveSketch({Sketch, cache, promisify, rsmq}){
     return async function removeSketch({id}){
         try {
             
@@ -13,6 +13,13 @@ module.exports = function makeRemoveSketch({Sketch, cache, promisify}){
             }
             const delAsync = promisify(cache.del).bind(cache);
             await delAsync(id);
+
+            await rsmq.sendMessageAsync({qname:process.env.ES_QUEUE_NAME, message:JSON.stringify({   // send event to search service
+                index:"posts",
+                event_type:"delete",
+                id:id
+            })})
+
             return delete_post;
         } catch (e) {
             throw new Error(e.message);

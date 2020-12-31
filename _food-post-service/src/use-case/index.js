@@ -12,8 +12,8 @@ const makeGetPost = require('./get-post');
 const makeFileUpload = require('./file-upload');
 
 const addFood = makeAddFood({Food, rsmq, cache});
-const editPost = makeEditPost({Food, cache});
-const deletePost = makeDeletePost({Food, cache, promisify});
+const editPost = makeEditPost({Food, cache, rsmq});
+const deletePost = makeDeletePost({Food, cache, promisify, rsmq});
 const getPost = makeGetPost({Food});
 const fileUpload = makeFileUpload();
 

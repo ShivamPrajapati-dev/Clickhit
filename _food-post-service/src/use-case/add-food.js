@@ -25,6 +25,12 @@ module.exports = function makeAddFood({Food,rsmq,cache}){
             username:food.getUsername()       // username to find follower of this user
         })});
 
+        await rsmq.sendMessageAsync({qname:process.env.ES_QUEUE_NAME, message:JSON.stringify({   // send event to search service
+            index:"posts",
+            event_type:"create",
+            body:saved
+        })})
+
         return saved;
          
     }

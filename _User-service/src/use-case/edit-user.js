@@ -1,6 +1,6 @@
 const {makeUser} = require('../user');
 
-module.exports = function makeEditUser({User}){
+module.exports = function makeEditUser({User, rsmq}){
     return async function editUser(info){
         const user = makeUser(info);
 
@@ -13,8 +13,16 @@ module.exports = function makeEditUser({User}){
         existing.img_url = user.getImageUrl() || existing.img_url;
         existing.img_name = user.getImageName() || existing.img_name
         existing.password = user.getPassword() || existing.password
+        
+        
+        const saved = await existing.save();
+        
+        await rsmq.sendMessageAsync({qname:process.env.ES_QUEUE_NAME, message: JSON.stringify({     // send user to search service through event
+            index:"users",
+            body:saved
+        })})
 
-        return await existing.save();
+        return saved;
 
     }
 }

@@ -5,7 +5,7 @@ module.exports = function makeExpressCallback(controller){
             index:req.params.index,
             body:req.body,
             query:req.params.query,
-            id:req.params.id
+            id:req.body.id
         }
         
         controller(httpRequest)

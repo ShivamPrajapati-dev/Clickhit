@@ -1,4 +1,4 @@
-module.exports = function makeRemoveQuote({Quote, cache, promisify}){
+module.exports = function makeRemoveQuote({Quote, cache, promisify, rsmq}){
     return async function removeQuote(id){
         try {
             
@@ -14,6 +14,12 @@ module.exports = function makeRemoveQuote({Quote, cache, promisify}){
             
             const delAsync = promisify(cache.del).bind(cache);    // delete from cache
             await delAsync(id);
+
+            await rsmq.sendMessageAsync({qname:process.env.ES_QUEUE_NAME, message:JSON.stringify({   // send event to search service
+                index:"posts",
+                event_type:"delete",
+                id:id
+            })})
 
             return delete_post;
         } catch (e) {

@@ -12,8 +12,8 @@ const makeGetSketch = require('./get-sketch');
 const makeFileUpload = require('./file-upload');
 
 const addSketch = makeAddSketch({Sketch, rsmq, cache});
-const editSketch = makeEditSketch({Sketch, cache});
-const removeSketch = makeRemoveSketch({Sketch, cache,promisify});
+const editSketch = makeEditSketch({Sketch, cache, rsmq});
+const removeSketch = makeRemoveSketch({Sketch, cache,promisify, rsmq});
 const readSketch = makeGetSketch({Sketch});
 const fileUpload = makeFileUpload();
 
