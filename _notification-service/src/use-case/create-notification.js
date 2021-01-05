@@ -8,12 +8,12 @@ module.exports = function makeCreateNotification({axios,url,kafka}){
         // return { ack:true }
 
         const notification = makeNotification(info)
-        const response = await axios.post(url,{username:notification.getUsername()});
+        const response = await axios.post(url,{username:notification.getUsername()});    // contact token service
 
         const producer = kafka.producer();
         await producer.connect();
 
-        if(response[notification.getEvent()]===false){
+        if(response.data[notification.getEvent()]===false){
             throw new Error('User not subscribed');
         }
         
@@ -22,18 +22,22 @@ module.exports = function makeCreateNotification({axios,url,kafka}){
             subtitle:notification.getSubtitle(),
             body:notification.getBody(),
             img_url:notification.getImage(),
-            token:response.device_token
+            type:"push",                            // type={push,email,sms}
+            event:notification.getEvent(),
+            ids:response.data.device_token
         }
 
-        await producer.send({
-            topic:notification.getEvent(),
-            messages:[{
-                value:JSON.stringify(body)
+        const result = await producer.send({
+            "topic":"Notification",
+            "messages":[{
+                "value":JSON.stringify(body),
+                "partition":0        
             }]
         });
-
+        await producer.disconnect();
         return {
-            acknowledged:true
+            acknowledged:true,
+            result
         }
 
     }

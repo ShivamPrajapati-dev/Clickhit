@@ -1,9 +1,8 @@
 module.exports = function makePostTopic({createTopic}){
     return async function postTopic(httpRequest){
-        const info = httpRequest.body;
        
         try {
-            const posted = await createTopic(info);
+            const posted = await createTopic();
 
             return {
                 headers: {
