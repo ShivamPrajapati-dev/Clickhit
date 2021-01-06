@@ -1,4 +1,4 @@
-const makeLike = require('../like');
+const makeLike = require('../../../_like-service-v2/src/like');
 
 module.exports = function makeAddLike({Like, rsmq}){
     return async function addLike(likeInfo){

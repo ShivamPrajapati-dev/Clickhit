@@ -1,7 +1,7 @@
 {
   "name": "kitchen",
   "version": "1.0.0",
-  "description": "",
+  "description": "make a seperate queue for each user for each type of post in userservice or in a seperate userfeed service to get the posts that was sent to that user create an activity table for storing number of likes for a comment or a post i.e     parent id(post id or comment id)   |     number of likes",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -31,5 +31,14 @@
     "serverless": "^1.72.0",
     "uuid": "^8.1.0",
     "validator": "^13.0.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShivamPrajapati-dev/Clickhit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ShivamPrajapati-dev/Clickhit/issues"
+  },
+  "homepage": "https://github.com/ShivamPrajapati-dev/Clickhit#readme"
 }
