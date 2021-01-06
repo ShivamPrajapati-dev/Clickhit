@@ -1,5 +1,13 @@
+const { existsSync } = require('fs');
 const redis = require('redis');
 const client = redis.createClient();
+const {promisify} = require('util');
+const existAsync = promisify(client.exists).bind(client);
+const fun = async()=>{
+    let x = await existAsync('ab');
+    console.log(x);
+}
+fun();
 module.exports = client;
 
 // const { promisify } = require("util");
