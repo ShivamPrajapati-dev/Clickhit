@@ -11,9 +11,7 @@ module.exports = function buildMakeLike(){
         if(!activityId){
             throw new Error('Like must have an activity id');
         }
-        if(!active){
-            throw new Error('Like must have a status');   
-        }
+      
         if(!type){
             throw new Error('Like must a type');
         }

@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 app.post('/getlikes', makeCallback(readLikes));
-app.post('/topic/create', makeCallback(postTopic));
+app.post('/topic/create', makeCallback(postTopic));     // admin API
 app.post('/addlike', makeCallback(postLike));
 app.delete('/deletelike', makeCallback(removeLike));
 

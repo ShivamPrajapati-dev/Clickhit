@@ -5,9 +5,7 @@ module.exports = function makePostLike({addLike}){
         const likeInfo = httpRequest.body;
 
         try {
-            const posted = await addLike({
-                ...likeInfo
-            });
+            const posted = await addLike(likeInfo);
 
             return {
                 headers: {
