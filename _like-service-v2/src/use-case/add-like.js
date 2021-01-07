@@ -5,7 +5,7 @@ module.exports = function makeAddLike({kafka, cache, promisify}){
         
         const like = makeLike(likeInfo);
         
-        const key = `${userId}Like${activityId}`;
+        const key = `${like.getUserId()}Like${like.getActivityId()}`;
        
         const existAsync = promisify(cache.exists).bind(cache);
         const check = await existAsync(key);
@@ -40,8 +40,8 @@ module.exports = function makeAddLike({kafka, cache, promisify}){
     
             await producer.disconnect();
 
-            const setexAsync = promisify(cache.setex).bind(cache);
-            await setexAsync(key, 900, true);       // store like in cache for 15 mins
+            const setAsync = promisify(cache.set).bind(cache);
+            await setAsync(key, true);       // store like in cache 
 
             return {
                 acknowledged:true,

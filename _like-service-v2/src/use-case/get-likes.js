@@ -13,7 +13,7 @@ module.exports = function makeGetLikes({axios, url, cache}){
 
             // connect with count service
 
-            return {count_likes, my_like};
+            //return {count_likes, my_like};
 
        
     }

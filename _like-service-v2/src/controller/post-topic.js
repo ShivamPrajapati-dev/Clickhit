@@ -1,5 +1,5 @@
 module.exports = function makePostTopic({createTopic}){
-    return async function postTopic(httpRequest){
+    return async function postTopic(){
        
         try {
             const posted = await createTopic();
