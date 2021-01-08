@@ -50,12 +50,5 @@ module.exports = function makeDeleteLike({kafka, cache, promisify}){
             result
         }
 
-        // await rsmq.sendMessageAsync({qname:process.env.ES_QUEUE_NAME, message:JSON.stringify({   // send event to search service
-        //     index:"prefs",
-        //     event_type:"delete",
-        //     body:saved
-        // })})
-      
-
     }
 }

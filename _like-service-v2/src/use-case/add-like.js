@@ -50,15 +50,5 @@ module.exports = function makeAddLike({kafka, cache, promisify}){
 
         }
 
-        // if(like.getType() == "post"){          // sent events for only post like
-
-        //     await rsmq.sendMessageAsync({qname:process.env.ES_QUEUE_NAME, message:JSON.stringify({   // send event to search service
-        //         index:"prefs",
-        //         event_type:"create",
-        //         body:saved
-        //     })})
-    
-        // }
-
     }
 }
