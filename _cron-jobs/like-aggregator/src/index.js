@@ -5,7 +5,8 @@ const mongoose = require('mongoose')
 const app = express();
 
 const {
-    aggregator
+    like_aggregator,
+    comment_aggregator
 } = require('./use-case')
 
 
@@ -17,7 +18,8 @@ mongoose
         .then((result)=>{
             app.listen(3000,()=>{
                 console.log('server up on port 3000');
-                aggregator()
+                like_aggregator()
+                comment_aggregator()
             })
         }).catch(e=>{
             console.log(e);

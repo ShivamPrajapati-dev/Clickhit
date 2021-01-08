@@ -1,12 +1,16 @@
-module.exports = function makeAggregator({Like,TempLike,cron}){
-    return function aggregator(){
-        cron.schedule('10 23 * * *', async function(){
+module.exports = function makeLikeAggregator({Like,TempLike,cron}){
+    return function like_aggregator(){
+      
+        console.log('like aggregator running');
+      
+        cron.schedule('48 23 * * *', async function(){
             try {
 
                 await Like.aggregate([
                     {
                         $match:{
-                            active:true
+                            active:true,
+                            type:"post"
                         }
                     },
                     {
@@ -18,7 +22,7 @@ module.exports = function makeAggregator({Like,TempLike,cron}){
                         }
                     },
                     {
-                        $out:"like-aggregate"
+                        $out:"like-aggregate(like)"
                     }
                 ]);
                 

@@ -22,6 +22,11 @@ module.exports = function makePermanentStorageUpdater({Like,subscribe}){
                      const saved = await like.save();
                      console.log(saved);
                 
+                }else if(body.event == "delete"){
+
+                    const like = await Like.deleteOne({_id:body.id,userId:body.userId});
+                    console.log(like.deletedCount);
+                
                 }
                
             }
