@@ -1,0 +1,20 @@
+{
+  "name": "_follow-service-v2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd src && nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "kafkajs": "^1.15.0",
+    "mongoose": "^5.11.11",
+    "nodemon": "^2.0.7"
+  }
+}
