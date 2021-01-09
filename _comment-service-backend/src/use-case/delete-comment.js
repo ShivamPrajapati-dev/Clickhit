@@ -16,7 +16,7 @@ module.exports = function makeDeleteComment({Comment, subscribe}){
                     try {   
 
                         const delete_comment = await Comment.deleteOne({_id:body.id});
-                        console.log(delete_comment);
+                        console.log(delete_comment.deletedCount);
                     
                     } catch (e) {
                         console.log(e.message);   

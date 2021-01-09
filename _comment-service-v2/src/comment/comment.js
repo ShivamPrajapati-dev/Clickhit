@@ -16,8 +16,6 @@ module.exports = function buildMakeComment(){
         }
 
         return Object.freeze({
-            getAuthorName:()=> name,
-            getImageUrl:()=> imageUrl,
             getUserId:()=> userId,
             getText:()=>text,
             getPostId:()=>activityId
