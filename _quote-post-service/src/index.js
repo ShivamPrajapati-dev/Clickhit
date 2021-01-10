@@ -8,8 +8,6 @@ const multer = require('multer');
 const multerS3 = require('multer-s3');
 const {v4:uuidv4} = require('uuid');
 const path = require('path')
-const RedisSMQ = require("rsmq");
-const rsmq = new RedisSMQ( {host: "127.0.0.1", port: 6379, ns: "rsmq"} );
 
 const app = express();
 app.use(bodyParser.json());
@@ -45,27 +43,9 @@ mongoose
       })
         .then((result)=>{
 
-            rsmq.listQueues(function (err,queues){
-                if(err){
-                    console.log(err);
-                    return;
-                }
-                if(queues.includes(process.env.QUEUE_NAME)){
-                    app.listen(3004,()=>{
-                        console.log('Food post service is up on port 3004');
-                    });
-                }else{
-                    rsmq.createQueue({qname:process.env.QUEUE_NAME},function (err,resp){
-                        if(err){
-                            console.log(err);
-                            return;
-                        }
-                        app.listen(3004,()=>{
-                            console.log('Food post service is up on port 3004');
-                        }); 
-                    })
-                }
-            })
+            app.listen(3004,()=>{
+                console.log('Food post service is up on port 3004');
+            });
 
         }).catch(e=>{
             console.log(e);
