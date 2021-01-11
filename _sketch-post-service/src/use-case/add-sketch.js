@@ -42,6 +42,7 @@ module.exports = function makeAddSketch({kafka}){
             hashtags:sketch.getHashtags(),
             description:sketch.getDescription(),
             time_taken:sketch.getTimeTaken(),
+            createdAt:Date.now(),
             event:"create",
             metadata:"post"
         }

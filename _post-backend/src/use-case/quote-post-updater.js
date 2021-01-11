@@ -1,8 +1,9 @@
-module.exports = function makeQuotePostUpdater({Quote,subscribeQuote,rsmq,cache,promisify}){
+module.exports = function makeQuotePostUpdater({Quote,subscribeQuote,rsmq,cache,promisify,kafka}){
     return async function quotePostUpdater(){
      
        const consumer = await subscribeQuote("QUOTE_UPDATER");
-     
+       const producer = kafka.producer();
+
        console.log('Consumer running ......');
      
        await consumer.run({
@@ -25,7 +26,7 @@ module.exports = function makeQuotePostUpdater({Quote,subscribeQuote,rsmq,cache,
                         const saved = await post.save();
     
                         const key = String(saved._id);
-    
+
                         cache.set(key,JSON.stringify(saved));//save post to redis
             
                         await rsmq.sendMessageAsync({qname:process.env.QUEUE_NAME,message:JSON.stringify({       // send event to userfeed service
@@ -33,7 +34,26 @@ module.exports = function makeQuotePostUpdater({Quote,subscribeQuote,rsmq,cache,
                             username:body.username      // username to find follower of this user
                         })});
     
-                        console.log(saved);
+                        await producer.connect();
+                       
+                        const msg = {
+                            activityId:key,
+                            createdAt:body.createdAt,
+                            event:"create",
+                            metadata:"post"
+                        }
+                       
+                        const result = await producer.send({
+                            "topic":"Storm",
+                            "messages":[{
+                                "value":JSON.stringify(msg),
+                                "partition":0        
+                            }]
+                        });
+                    
+                        await producer.disconnect();
+
+                        console.log(saved,result);
                     
                     }else if(body.event == "delete"){
     

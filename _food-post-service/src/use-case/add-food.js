@@ -44,6 +44,7 @@ module.exports = function makeAddFood({kafka}){
             img_name:food.getImageName(),
             img_url:food.getImageUrl(),
             hashtags:food.getHashtags(),
+            createdAt:Date.now(),
             event:"create",
             metadata:"post"
         }

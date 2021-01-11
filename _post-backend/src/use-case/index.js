@@ -1,5 +1,11 @@
 const { subscribeFood, subscribeQuote, subscribeSketch } = require('../subscribe')
 
+const {Kafka} = require("kafkajs")
+const kafka = new Kafka({
+    "clientId": "clickhit",
+    "brokers" :["shivam:9092"]
+})
+
 const Food = require('../model/food-post');
 const Quote = require('../model/quote-post')
 const Sketch = require('../model/sketch-post');
@@ -14,8 +20,8 @@ const makeFoodPostUpdater = require('./food-post-updater');
 const makeQuotePostUpdater = require('./quote-post-updater');
 const makeSketchPostUpdater = require('./sketch-post-updater');
 
-const foodPostUpdater = makeFoodPostUpdater({Food,subscribeFood,rsmq,cache,promisify});
-const quotePostUpdater = makeQuotePostUpdater({Quote,subscribeQuote,rsmq,cache,promisify});
-const sketchPostUpdater = makeSketchPostUpdater({Sketch,subscribeSketch,rsmq,cache,promisify});
+const foodPostUpdater = makeFoodPostUpdater({Food,subscribeFood,rsmq,cache,promisify,kafka});
+const quotePostUpdater = makeQuotePostUpdater({Quote,subscribeQuote,rsmq,cache,promisify,kafka});
+const sketchPostUpdater = makeSketchPostUpdater({Sketch,subscribeSketch,rsmq,cache,promisify,kafka});
 
 module.exports = { foodPostUpdater, quotePostUpdater, sketchPostUpdater };

@@ -12,7 +12,8 @@ module.exports = function makeAddComment({kafka}){
             userId:comment.getUserId(),
             text:comment.getText(),
             activityId:comment.getPostId(),
-            event:"create"
+            event:"create",
+            "metadata":"comment"
         }
 
 

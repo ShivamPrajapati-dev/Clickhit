@@ -36,6 +36,7 @@ module.exports = function makeAddQuote({kafka}){
             img_name:quote.getImageName(),
             username:quote.getUsername(),
             hashtags:quote.getHashtags(),
+            createdAt:Date.now(),
             event:"create",
             metadata:"post"
         }
