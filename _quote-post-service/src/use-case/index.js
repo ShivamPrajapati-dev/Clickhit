@@ -1,9 +1,11 @@
-const Quote = require('../model/post');
-const RedisSMQ = require("rsmq");
-const rsmq = new RedisSMQ( {host: "127.0.0.1", port: 6379, ns: "rsmq"} );
-const redis = require('redis');
-const cache = redis.createClient();
-const { promisify } = require('util')
+const {Kafka} = require("kafkajs")
+const mongoose = require('mongoose')
+const kafka = new Kafka({
+    "clientId": "clickhit",
+    "brokers" :["shivam:9092"]
+})
+
+const Quote = mongoose.model('quote', new mongoose.Schema());
 
 const makeAddQuote = require('./add-quote');
 const makeEditQuote = require('./edit-quote');
@@ -11,9 +13,9 @@ const makeRemoveQuote = require('./remove-quote');
 const makeGetQuote = require('./get-quote');
 const makeFileUpload = require('./file-upload');
 
-const addQuote = makeAddQuote({Quote, rsmq, cache});
-const editQuote = makeEditQuote({Quote,cache, rsmq});
-const removeQuote = makeRemoveQuote({Quote,cache, promisify, rsmq});
+const addQuote = makeAddQuote({kafka});
+const editQuote = makeEditQuote({kafka});
+const removeQuote = makeRemoveQuote({kafka});
 const readQuote = makeGetQuote({Quote});
 const fileUpload = makeFileUpload();
 

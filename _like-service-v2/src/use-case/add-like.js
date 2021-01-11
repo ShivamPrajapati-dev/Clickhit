@@ -27,7 +27,8 @@ module.exports = function makeAddLike({kafka, cache, promisify}){
                 activityId:like.getActivityId(),
                 type: like.getType(),
                 status: like.getStatus(),
-                event:"create"
+                event:"create",
+                metadata:"like"
             }
     
             const result = await producer.send({

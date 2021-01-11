@@ -44,27 +44,9 @@ mongoose
       })
         .then((result)=>{
 
-            rsmq.listQueues(function (err,queues){
-                if(err){
-                    console.log(err);
-                    return;
-                }
-                if(queues.includes(process.env.QUEUE_NAME)){
-                    app.listen(3005,()=>{
-                        console.log('Food post service is up on port 3005');
-                    });
-                }else{
-                    rsmq.createQueue({qname:process.env.QUEUE_NAME},function (err,resp){
-                        if(err){
-                            console.log(err);
-                            return;
-                        }
-                        app.listen(3005,()=>{
-                            console.log('Food post service is up on port 3005');
-                        }); 
-                    })
-                }
-            })
+            app.listen(3005,()=>{
+                console.log('Food post service is up on port 3005');
+            });
 
         }).catch(e=>{
             console.log(e);
