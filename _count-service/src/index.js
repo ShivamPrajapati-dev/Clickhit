@@ -16,8 +16,8 @@ const {
 
 const makeExpressCallback = require('./express-callback');
 
-app.post('/count/likes',makeExpressCallback(postLikeCount));
-app.post('/count/comments', makeExpressCallback(postCommentLikeCount));
+app.post('/likes',makeExpressCallback(postLikeCount));
+app.post('/comments', makeExpressCallback(postCommentLikeCount));
 
 
 mongoose
@@ -26,8 +26,8 @@ mongoose
         useUnifiedTopology: true,
       })
         .then((result)=>{
-            app.listen(3015,()=>{
-                console.log('Server is up on port 3015');
+            app.listen(3002,()=>{
+                console.log('Server is up on port 3002');
             });
         }).catch(e=>{
             console.log(e);

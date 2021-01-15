@@ -2,6 +2,8 @@ module.exports = function makePostUser({addUser}){
     return async function postUser(httpRequest){
         const info = httpRequest.body;
        
+        //TODO: attach JWT in header
+
         try {
             const posted = await addUser({
                 ...info

@@ -20,6 +20,6 @@ app.post('/topic/create', makeCallback(postTopic));     // admin API
 app.post('/addlike', makeCallback(postLike));
 app.delete('/deletelike', makeCallback(removeLike));
 
-app.listen(3004,()=>{
-    console.log('Server is up on port 3004');
+app.listen(3008,()=>{
+    console.log('Server is up on port 3008');
 });
