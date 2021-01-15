@@ -15,8 +15,8 @@ mongoose
         useUnifiedTopology: true,
       })
         .then((result)=>{
-            app.listen(3000,()=>{
-                console.log('server up on port 3000');
+            app.listen(3005,()=>{
+                console.log('server up on port 3005');
                 calculator();
             })
         }).catch(e=>{

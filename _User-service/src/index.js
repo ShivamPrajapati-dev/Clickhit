@@ -43,7 +43,7 @@ const makeCacheMiddleware = require('./middleware/cache');
 worker.on("message",makeEvent(postUser,patchUser,deleteUserToken));
 app.post('/adduser',makeExpressCallback(postUser));
 app.patch('/updateuser', upload.single('pic'),makeExpressCallback(patchUser));
-app.get('/getuser',makeCacheMiddleware(cache),makeExpressCallback(getUser));
+app.post('/getuser',makeCacheMiddleware(cache),makeExpressCallback(getUser));
 
 
 mongoose
@@ -59,8 +59,8 @@ mongoose
                     return;
                 }
                 if(queues.includes(process.env.ES_QUEUE_NAME)){
-                    app.listen(3007,()=>{
-                        console.log('User service listening on port 3007');
+                    app.listen(3014,()=>{
+                        console.log('User service listening on port 3014');
                         worker.start();
                     })
 
@@ -70,8 +70,8 @@ mongoose
                             console.log(err);
                             return;
                         }
-                        app.listen(3007,()=>{
-                            console.log('User service listening on port 3007');
+                        app.listen(3014,()=>{
+                            console.log('User service listening on port 3014');
                             worker.start();
                         }) 
 

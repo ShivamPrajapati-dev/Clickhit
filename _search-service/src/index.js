@@ -20,10 +20,10 @@ const makeEvent = require('./event');
 
 //app.post('/search/data/:index', makeExpressCallback(postData));
 worker.on("message",makeEvent(postData,patchData,deleteData));
-app.post('/search/sayt/:index/:query', makeExpressCallback(postSAYT));   // body:{"field":"username"}
+app.post('/sayt/:index/:query', makeExpressCallback(postSAYT));   // body:{"field":"username"}
 //app.patch('/search/update/:index/:id', makeExpressCallback(patchData));
 
-app.listen(3009,()=>{
-    console.log('Listening on port 3009');
+app.listen(3011,()=>{
+    console.log('Listening on port 3011');
     worker.start();
 })

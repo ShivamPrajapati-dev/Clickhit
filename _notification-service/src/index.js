@@ -14,9 +14,9 @@ const {
 
 const makeExpressCallback = require('./express-callback');
 
-app.post('/notification/post',makeExpressCallback(postNotification));
-app.post('/notification/topic/post',makeExpressCallback(postTopic));
+app.post('/post',makeExpressCallback(postNotification));
+app.post('/topic/post',makeExpressCallback(postTopic));
 
-app.listen(3011,()=>{
-    console.log('Server up on port 3011');
+app.listen(3009,()=>{
+    console.log('Server up on port 3009');
 })

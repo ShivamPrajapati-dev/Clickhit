@@ -22,9 +22,9 @@ const makeEvent = require('./events');
 const makeExpressCallback = require('./express-callback');
 
 worker.on("message", makeEvent(cache,promisify,axios,process.env.FOLLOW_URL));
-app.post('/userfeed/get', makeExpressCallback(getUserfeed));
+app.post('/get', makeExpressCallback(getUserfeed));
 
-app.listen(3008, ()=>{
-    console.log('userfeed service up on port 3008');
+app.listen(3015, ()=>{
+    console.log('userfeed service up on port 3015');
     worker.start();
 });

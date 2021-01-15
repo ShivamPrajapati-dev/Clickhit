@@ -20,10 +20,10 @@ const makeExpressCallback = require('./express-callback');
 const makeEvent = require('./events');
 
 worker.on("message",makeEvent(postToken))                            // create tokenstore through an event
-app.post('/tokenstore/post',makeExpressCallback(postToken));
-app.post('/tokenstore/get',makeExpressCallback(getTokenstore));
-app.patch('/tokenstore/update', makeExpressCallback(patchTokenstore));
-app.delete('/tokenstore/delete', makeExpressCallback(removeToken));
+app.post('/post',makeExpressCallback(postToken));
+app.post('/get',makeExpressCallback(getTokenstore));
+app.patch('/update', makeExpressCallback(patchTokenstore));
+app.delete('/delete', makeExpressCallback(removeToken));
 
 mongoose
     .connect(process.env.MONGO_URL, {
@@ -31,8 +31,8 @@ mongoose
         useUnifiedTopology: true,
       })
         .then((result)=>{
-            app.listen(3009,()=>{
-                console.log('Server is up on port 3009');
+            app.listen(3013,()=>{
+                console.log('Server is up on port 3013');
                 worker.start();
             });
         }).catch(e=>{

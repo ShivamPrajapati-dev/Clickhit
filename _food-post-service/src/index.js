@@ -32,10 +32,10 @@ const {
 const makeExpressCallback = require('./express-callback');
 const upload = fileUpload({multer,multerS3,uuidv4,s3,path});
 
-app.post('/food/post', upload.single('pic'), makeExpressCallback(postFood));   // update userfeed of followers after new posts,update and delete post
-app.patch('/food/update',upload.single('pic'), makeExpressCallback(patchFood));
-app.delete('/food/delete',makeExpressCallback(deleteFood));
-app.post('/food/get', makeExpressCallback(getFood));
+app.post('/post', upload.single('pic'), makeExpressCallback(postFood));   // update userfeed of followers after new posts,update and delete post
+app.patch('/update',upload.single('pic'), makeExpressCallback(patchFood));
+app.delete('/delete',makeExpressCallback(deleteFood));
+app.post('/get', makeExpressCallback(getFood));
 
 mongoose
     .connect(process.env.MONGO_URL, {
@@ -44,8 +44,8 @@ mongoose
       })
         .then((result)=>{
 
-            app.listen(3003,()=>{
-                console.log('Food post service is up on port 3003');
+            app.listen(3007,()=>{
+                console.log('Food post service is up on port 3007');
             }); 
         }).catch(e=>{
             console.log(e);
