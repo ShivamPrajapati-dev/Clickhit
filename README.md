@@ -32,7 +32,6 @@
 
 | Service             |  Main endpoint         |
 | --------------------| :---------------------:|
-
 | Follower-aggregator |  http://localhost:3003 |
 | Like-aggregator     |  http://localhost:3004 |
 | Score-calculator    |  http://localhost:3005 |
