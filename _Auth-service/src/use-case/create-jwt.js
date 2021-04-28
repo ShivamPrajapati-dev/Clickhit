@@ -11,15 +11,19 @@ module.exports = function makeCreteJWT({axios,jwt,jwt_url}){
                 headers:{"Content-Type":"application/json"}
             });
             
-            console.log(res.data);
+         //   console.log(res.data);
 
             const token = jwt.sign({
-                "iss":res.data.key
+                "iss":res.data.key,
+                "username":credentials.getUsername(),
+                "password":credentials.getPassword()
             },res.data.secret);
+
             console.log(token);
             return Object.freeze({
                 getToken:() => token,
-                getId: () => res.data.id
+                getId: () => res.data.id,
+                getSecret:()=> res.data.secret
             });
 
         } catch (e) {

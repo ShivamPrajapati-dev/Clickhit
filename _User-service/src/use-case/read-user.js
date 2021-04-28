@@ -6,7 +6,7 @@ module.exports = function makeReadUser({User,cache}){
             return info.user;
         }
         const user = makeUser(info);
-        const existing = await User.findOne({username:user.getUsername()});
+        const existing = await User.findByCredentials(user.getUsername(),user.getPassword());
         if(!existing){
             throw new Error('User not found');
         }

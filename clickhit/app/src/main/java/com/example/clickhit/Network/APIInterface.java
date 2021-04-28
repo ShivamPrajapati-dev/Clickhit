@@ -21,6 +21,26 @@ import retrofit2.http.Query;
 
 public interface APIInterface {
 
+    //========================== New API ========================================
+
+    //_User-service
+    @POST("/user/getuser")
+    Call<Object> getUser(@Body HashMap<String,String> body);
+
+    @POST("/auth/addconsumer")
+    Call<Object> addConsumer(@Body HashMap<String,String> body);
+
+
+
+
+
+
+
+
+
+
+
+
     //================================= User =======================================
     @Multipart
     @POST("/adduser")                                               // without auth

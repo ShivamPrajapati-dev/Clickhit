@@ -11,9 +11,12 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import com.example.clickhit.Network.NetworkCalls.AddConsumer;
 import com.example.clickhit.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.HashMap;
 
 public class SignUp extends AppCompatActivity{
 
@@ -21,19 +24,13 @@ public class SignUp extends AppCompatActivity{
     private Button next;
     private TextInputEditText username, password, confirm_password;
     private TextInputLayout textInputLayout_password, textInputLayout_username, textInputLayout_confirm_password;
-
+    private HashMap<String,String> body;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        button = findViewById(R.id.login);
-        next = findViewById(R.id.next);
-        username = findViewById(R.id.user_name);
-        password = findViewById(R.id.password);
-        confirm_password = findViewById(R.id.confirm_password);
-        textInputLayout_password = findViewById(R.id.TIL_password);
-        textInputLayout_username = findViewById(R.id.TIL_username);
-        textInputLayout_confirm_password = findViewById(R.id.TIL_confirm_password);
+
+        initAssets();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,11 +54,12 @@ public class SignUp extends AppCompatActivity{
                 } else if (!TextUtils.equals(password.getText().toString().trim(), confirm_password.getText().toString().trim())) {
                     textInputLayout_confirm_password.setError("Password not matched");
                 } else {
-                    Intent intent = new Intent(SignUp.this, UserInfo.class);
-                    intent.putExtra("username",username.getText().toString().trim());
-                    intent.putExtra("password",confirm_password.getText().toString().trim());
-                    startActivity(intent);
-                    finish();
+                    body.put("username",username.getText().toString().trim());
+                    body.put("password",confirm_password.getText().toString().trim());
+
+                    //API call
+                    AddConsumer.create(SignUp.this,body);
+
                 }
             }
         });
@@ -72,8 +70,22 @@ public class SignUp extends AppCompatActivity{
 
     }
 
+    private void initAssets() {
+
+        body = new HashMap<>();
+        button = findViewById(R.id.login);
+        next = findViewById(R.id.next);
+        username = findViewById(R.id.user_name);
+        password = findViewById(R.id.password);
+        confirm_password = findViewById(R.id.confirm_password);
+        textInputLayout_password = findViewById(R.id.TIL_password);
+        textInputLayout_username = findViewById(R.id.TIL_username);
+        textInputLayout_confirm_password = findViewById(R.id.TIL_confirm_password);
+
+    }
+
     private class MyTextWatcher implements TextWatcher{
-        private View view;
+        private final View view;
         public MyTextWatcher(View view) {
             this.view = view;
         }
