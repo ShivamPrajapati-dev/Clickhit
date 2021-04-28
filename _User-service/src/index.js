@@ -39,11 +39,12 @@ const upload = fileUpload({multer,multerS3,uuidv4,s3,path});
 const makeExpressCallback = require('./express-callback');
 const makeEvent = require('./events');
 const makeCacheMiddleware = require('./middleware/cache');
+const auth = require('./middleware/auth')
 
 worker.on("message",makeEvent(postUser,patchUser,deleteUserToken));
 app.post('/adduser',makeExpressCallback(postUser));
 app.patch('/updateuser', upload.single('pic'),makeExpressCallback(patchUser));
-app.post('/getuser',makeCacheMiddleware(cache),makeExpressCallback(getUser));
+app.post('/getuser',makeCacheMiddleware(cache), auth ,makeExpressCallback(getUser));
 
 
 mongoose

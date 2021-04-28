@@ -12,7 +12,7 @@ module.exports = function makePostJWT({createJWT}){
                     'Content-Type': 'application/json',
                 },
                 statusCode: 201,
-                body: { token:obj.getToken(), id:obj.getId() }
+                body: { token:obj.getToken(), id:obj.getId(), secret:obj.getSecret() }
             }
 
         } catch (e) {

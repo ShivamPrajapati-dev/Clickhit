@@ -26,7 +26,7 @@ module.exports = function makeExpressCallback(rsmq,event,qname,controller,postJW
                 
                     res.status(httpResponse.statusCode).send({success:true});
                 
-                }else{
+                }else {
                     postJWT(httpRequest)
                         .then( async (httpResponseJWT)=>{
                             // send event to user service
@@ -40,7 +40,7 @@ module.exports = function makeExpressCallback(rsmq,event,qname,controller,postJW
                             });
                             await rsmq.sendMessageAsync({qname,message:response});
                         
-                            res.status(httpResponse.statusCode).send({username:httpResponse.body.username,password:req.body.password,token:httpResponseJWT.body.token,id:httpResponseJWT.body.id});
+                            res.status(httpResponse.statusCode).send({username:httpResponse.body.username,password:req.body.password,token:httpResponseJWT.body.token,id:httpResponseJWT.body.id,secret:httpResponseJWT.body.secret});
                         
                         })
                 }

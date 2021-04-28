@@ -7,11 +7,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitInitialize {
-    public Retrofit retrofit;
-    public APIInterface apiInterface;
-    public static String BASE_URL = "https://238d9064c5bf.ngrok.io";
+    public static Retrofit retrofit;
+    public static String BASE_URL = "https://6bcf69b55885.ngrok.io";
 
-    public APIInterface init() {
+    public static APIInterface init() {
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(120, TimeUnit.SECONDS)
                 .connectTimeout(120, TimeUnit.SECONDS)
@@ -23,9 +22,7 @@ public class RetrofitInitialize {
                 .client(okHttpClient)
                 .build();
 
-        apiInterface = retrofit.create(APIInterface.class);
-
-        return apiInterface;
+        return retrofit.create(APIInterface.class);
     }
 
 }

@@ -11,11 +11,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitInitializeAuth {
 
-    public Retrofit retrofit;
-    public APIInterface apiInterface;
-    public static String BASE_URL = "https://238d9064c5bf.ngrok.io";
+    public static Retrofit retrofit;
+    public static String BASE_URL = "https://6bcf69b55885.ngrok.io";
 
-    public APIInterface init(final String token) {
+    public static APIInterface init(final String token) {
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(new Interceptor() {
@@ -39,8 +38,6 @@ public class RetrofitInitializeAuth {
                 .client(client)
                 .build();
 
-        apiInterface = retrofit.create(APIInterface.class);
-
-        return apiInterface;
+        return retrofit.create(APIInterface.class);
     }
 }

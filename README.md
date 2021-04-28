@@ -6,9 +6,9 @@
 | Main endpoint | http://localhost:3000 |
 | --------------| :--------------------:|
 
-* <b>POST</b> /auth/consumer/addconsumer
-* <b>POST</b> /auth/login/loginconsumer
-* <b>POST</b> /auth/logout/logutconsumer
+* <b>POST</b> /auth/addconsumer
+* <b>POST</b> /auth/loginconsumer
+* <b>POST</b> /auth/logutconsumer
 
 ## Comment-service 
 
