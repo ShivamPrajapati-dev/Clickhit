@@ -31,11 +31,12 @@ const {
 
 const makeExpressCallback = require('./express-callback');
 const upload = fileUpload({multer,multerS3,uuidv4,s3,path});
+const auth = require('./middleware/auth')
 
-app.post('/post', upload.single('pic'), makeExpressCallback(postFood));   // update userfeed of followers after new posts,update and delete post
-app.patch('/update',upload.single('pic'), makeExpressCallback(patchFood));
-app.delete('/delete',makeExpressCallback(deleteFood));
-app.post('/get', makeExpressCallback(getFood));
+app.post('/post',auth, upload.single('pic'), makeExpressCallback(postFood));   // update userfeed of followers after new posts,update and delete post
+app.patch('/update',auth, upload.single('pic'), makeExpressCallback(patchFood));
+app.delete('/delete',auth, makeExpressCallback(deleteFood));
+app.post('/get',auth, makeExpressCallback(getFood));
 
 mongoose
     .connect(process.env.MONGO_URL, {
