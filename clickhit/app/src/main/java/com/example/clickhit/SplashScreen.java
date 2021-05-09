@@ -34,7 +34,7 @@ public class SplashScreen extends AppCompatActivity {
         body = new HashMap<>();
         //Reading token secret
         body.put("secret",Prefs.getTokenSecret(this));
-        Call<Object> call = RetrofitInitializeAuth.init(Prefs.getToken(this)).getUser(body);
+        Call<Object> call = RetrofitInitializeAuth.getInstance(Prefs.getToken(this)).getUser(body);
 
         call.enqueue(new Callback<Object>() {
             @Override

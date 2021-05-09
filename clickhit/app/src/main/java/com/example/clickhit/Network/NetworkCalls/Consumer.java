@@ -19,9 +19,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddConsumer {
-    public static void create(Context context, HashMap<String, String> body) {
-        Call<Object> call = RetrofitInitialize.init().addConsumer(body);
+public class Consumer {
+    public static void addConsumer(Context context, HashMap<String, String> body) {
+        Call<Object> call = RetrofitInitialize.getInstance().addConsumer(body);
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {

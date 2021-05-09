@@ -12,7 +12,6 @@ const auth = async (req,res,next)=>{
         const token = req.header('Authorization').replace('Bearer ','');
         const decoded = jwt.verify(token,req.body.secret);
         req.body.username = decoded.username
-        req.body.password = decoded.password
         console.log(decoded)
         next();
         

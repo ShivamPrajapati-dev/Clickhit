@@ -73,8 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
     }
 
     private void setUserProfile() {
-        retrofitInitializeAuth = new RetrofitInitializeAuth();
-        Call<Object> call = retrofitInitializeAuth.init(Prefs.getToken(this)).getProfile();
+        Call<Object> call = RetrofitInitializeAuth.getInstance(Prefs.getToken(this)).getProfile();
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {

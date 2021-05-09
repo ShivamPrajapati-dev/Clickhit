@@ -30,6 +30,8 @@ public interface APIInterface {
     @POST("/auth/addconsumer")
     Call<Object> addConsumer(@Body HashMap<String,String> body);
 
+    @POST("/get")
+    Call<Object> getUserFeed(@Body HashMap<String, String> body);
 
 
 

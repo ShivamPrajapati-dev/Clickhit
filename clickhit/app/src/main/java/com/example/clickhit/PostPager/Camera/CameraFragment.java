@@ -119,7 +119,7 @@ public class CameraFragment extends Fragment {
 
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdirs()) {
-                Log.d("MyCameraApp", "failed to create directory");
+                Log.d("MyCameraApp", "failed to addConsumer directory");
                 return null;
             }
         }
