@@ -11,7 +11,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 
-import com.example.clickhit.Network.NetworkCalls.AddConsumer;
+import com.example.clickhit.Network.NetworkCalls.Consumer;
 import com.example.clickhit.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -58,7 +58,7 @@ public class SignUp extends AppCompatActivity{
                     body.put("password",confirm_password.getText().toString().trim());
 
                     //API call
-                    AddConsumer.create(SignUp.this,body);
+                    Consumer.addConsumer(SignUp.this,body);
 
                 }
             }

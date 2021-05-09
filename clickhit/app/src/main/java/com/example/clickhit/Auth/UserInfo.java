@@ -107,7 +107,7 @@ public class UserInfo extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(username.getText().toString())) {
+                if (TextUtils.isEmpty(Objects.requireNonNull(username.getText()).toString())) {
                     textInputLayout_username.setError("Enter your name");
                 } else {
                     progressIndicator.setVisibility(View.VISIBLE);
@@ -157,7 +157,7 @@ public class UserInfo extends AppCompatActivity {
         MultipartBody.Part dob = MultipartBody.Part.createFormData("age", dateOfBirth.getText().toString());
         MultipartBody.Part bio = MultipartBody.Part.createFormData("bio", intro.getText().toString());
 
-        Call<Object> call = retrofitInitialize.init().addUser(userId, name, password, dob, bio, part);
+        Call<Object> call = RetrofitInitialize.getInstance().addUser(userId, name, password, dob, bio, part);
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call call, Response response) {

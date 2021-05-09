@@ -38,11 +38,6 @@
         <activity android:name=".Auth.Login" />
         <activity android:name=".Auth.SignUp" />
         <activity android:name=".SplashScreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".drawer.Settings.NotificationActivity" />
         <activity android:name=".drawer.Settings.AboutActivity" />
@@ -78,6 +73,12 @@
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".ui.Search.SearchableActivity" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
         </activity>
     </application>
 

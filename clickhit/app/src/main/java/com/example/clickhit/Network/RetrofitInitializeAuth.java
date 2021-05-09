@@ -12,32 +12,35 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitInitializeAuth {
 
     public static Retrofit retrofit;
-    public static String BASE_URL = "https://6bcf69b55885.ngrok.io";
+    public static String BASE_URL = "https://ce14bf67e240.ngrok.io";
+    private static APIInterface apiInterface;
+    
+    public static APIInterface getInstance(final String token) {
+        if(apiInterface == null) {
+            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+            httpClient.addInterceptor(new Interceptor() {
+                @Override
+                public Response intercept(Chain chain) throws IOException {
+                    Request original = chain.request();
 
-    public static APIInterface init(final String token) {
+                    Request request = original.newBuilder()
+                            .header("Authorization", "Bearer " + token)
+                            .method(original.method(), original.body())
+                            .build();
+                    return chain.proceed(request);
+                }
+            });
 
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request original = chain.request();
+            OkHttpClient client = httpClient.build();
 
-                Request request = original.newBuilder()
-                        .header("Authorization", "Bearer " + token)
-                        .method(original.method(), original.body())
-                        .build();
-                return chain.proceed(request);
-            }
-        });
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(client)
+                    .build();
+            apiInterface = retrofit.create(APIInterface.class);
+        }
 
-        OkHttpClient client = httpClient.build();
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
-                .build();
-
-        return retrofit.create(APIInterface.class);
+        return apiInterface;
     }
 }

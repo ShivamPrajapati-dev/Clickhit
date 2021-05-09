@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema({
-
+    //TODO Refractor to class based
     username:{type:String},
     food_name:{type:String},
     category:{type:String},
