@@ -3,6 +3,12 @@
 
 ##
 
+## Notification service
+
+<img src="Untitled Diagram-Page-2.png">
+
+##
+
 # Routes
 
 ## Auth-service
