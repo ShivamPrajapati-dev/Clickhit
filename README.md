@@ -1,17 +1,17 @@
 ## Post service
-<img src="Untitled Diagram-Page-1.png" width="1000" height="500">
+<img src="Untitled Diagram-Page-1.png">
 
 ##
 
 ## Notification service
 
-<img src="Untitled Diagram-Page-2.png" width="1000" height="500">
+<img src="Untitled Diagram-Page-2.png">
 
 ##
 
 ## Likes count service
 
-<img src = "Untitled Diagram-Page-3.png" width="1000" height="500">
+<img src = "Untitled Diagram-Page-3.png">
 
 ##
 
