@@ -9,6 +9,12 @@
 
 ##
 
+## Likes count service
+
+<img src = "Untitled Diagram-Page-3.png">
+
+##
+
 # Routes
 
 ## Auth-service
